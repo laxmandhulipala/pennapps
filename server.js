@@ -6,12 +6,25 @@ var request = require("request");
 var cheerio = require("cheerio");
 var crypto = require("crypto");
 var fs = require("fs");
-var _redis = require("redis"),
-        redis = _redis.createClient();
+var redis = require("redis"),
+        client = redis.createClient();
 
 var reds = require("reds");
 
 var app = express();
+
+
+function makewqStore() {
+  client.exists('wqStore', function(error, exists) {
+    if(error) {
+        console.log('ERROR: '+error);
+    } else if(!exists) {
+        client.set('wqStore', []); //create the wqStore key
+    };
+  });
+}
+
+makewqStore();
 
 function getUid()
 {
@@ -42,10 +55,6 @@ app.get("/", function(req, res) {
 	res.sendfile(staticDir + 'index.html');
 });
 
-app.post("/test", function(req, res) {
-	console.log("gotamsg");
-});
-
 var getUrl = function(theUrl, theTags) {
 	request(theUrl, function(err, resp, body) {
 		if (err) {
@@ -57,19 +66,31 @@ var getUrl = function(theUrl, theTags) {
 	});
 };
 
-var searchFor(queryStr) {
+var searchFor = function(queryStr) {
 	var nSearch = reds.createSearch(queryStr);
-	
 };
+
+app.get("/flushDB", function(req, res) {
+	client.flushall( function (didSucceed) {
+        console.log(didSucceed); // true
+    });
+	makewqStore();
+});
 
 
 app.post("/addUrl", function(req, res) {
 	console.log("In add url");
 	console.log("req.body is ", req.body);
-	console.log("req.params are ", req.params);
 	if (req.body.docURL) {
-		// have a valid file to work with, load it up with cheerio
-
+		// great - client.rpush exists. 
+		var url = req.body.docURL;
+		var tags = req.body.httpTags;
+		var content = req.body.theInnerTxt;
+		client.rpush("wqStore", [url, tags, content]);
+		console.log("pushed");
+		client.get("wqStore", redis.print);
+	}
+/*
 	var searchA = reds.createSearch('addUrl');
 
 	var strs = [];
@@ -89,7 +110,7 @@ app.post("/addUrl", function(req, res) {
 	    });
 	  }, 'or');
 	
-	}
+	} */
 });
 
 function serveStaticFile(request, response) {
