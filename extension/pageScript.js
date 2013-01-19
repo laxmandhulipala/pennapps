@@ -13,9 +13,7 @@
 		
 		// activate search when searchBtn is clicked
 /*		$('.searchBtn').on('click', function(e){
-			$('#search').removeClass('searchFadeOut').addClass('searchFadeIn').css('display', 'block');
-			$('#search input[type=text]').attr('autofocus', 'true').focus();
-			
+					
 			e.preventDefault();
 		}); */
 		
@@ -23,20 +21,90 @@
 			hideSearch();
 			e.preventDefault();
 		}); */
+
+		function writeToServ(txtVal) {
+			console.log(chrome);
+			$.ajax({ url: 'http://127.0.0.1:8080/test',
+                type: 'POST',
+                data: 'box : candy', 
+                dataType: 'json',
+                contentType: "application/json",
+                cache: false,
+                success : function(result) {
+                    console.log("yaaaay");
+                },
+                error : function() {
+                    console.log("saaaaad"); 
+                },
+            });
+		}		
+
+		function showSave () {
+			// need to add to dom
+			var search = $('<section></section>').attr('id', 'search').attr('class', 'manimate');
+			var row = $('<row></row>');
+			var searchformdiv = $('<div></div>').attr('class', 'searchform');
+			var searchform = $('<form></form>');
+			var tagInput = $('<input></input>').attr('type', 'text').attr('name', 'keywords').attr('id','keywords').attr('value','').attr('size','20').attr('maxlength','100');
+//			var tagSubmit = $('<input></input>').attr('class', 'submit');
+			searchform.append(tagInput);
+			searchformdiv.append(searchform);
+			var instr = $('<div></div>');
+			var bigH = $('<h1> input space delimited tags and press enter </h1>');
+			instr.append(bigH);
+			row.append(instr);
+			row.append(searchformdiv);
+			search.append(row);
+			$('body').append(search);
+
+			$('#search').removeClass('searchFadeOut').addClass('searchFadeIn').css('display', 'block');
+			$('#search input[type=text]').attr('autofocus', 'true').focus();
+
+			$('#keywords').bind('keypress', function(e) {
+				if(e.keyCode==13){
+					// Enter pressed... do anything here...
+					console.log("Enter was pressed - first check for non-empty input");
+					var txtVal = $('#keywords').val();
+					if (txtVal !== "") {
+						writeToServ(txtVal);	
+					}
+					e.preventDefault();
+				}
+			});
+		
+		}
 		
 		function hideSearch() {
-			$search.removeClass('searchFadeIn').addClass('searchFadeOut');
+			$('#search').removeClass('searchFadeIn').addClass('searchFadeOut');
 			
 			setTimeout(function() {
 				$('#search').css('display', 'none');
 			}, 500);
 		}
+
+		keypress.combo("escape", function() {
+			hideSearch();
+		});
+	
+		keypress.combo("shift s", function() {
+			console.log("pressed it bro");
+		});
 	
 		keypress.combo("colon w q", function() {
+			var quer = $('#search');	
+			if(quer) {
+				quer.remove();
+			}
+			showSave();	
     		console.log("You pressed :wq");
 		}); 
 
-		keypresscombo("colon x", function() {
+		keypress.combo("colon x", function() {
+			var quer = $('#search');	
+			if(quer) {
+				quer.remove();
+			}
+			showSave();
 			console.log("You pressed :X");
 		});
 

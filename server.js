@@ -21,6 +21,10 @@ app.get("/", function(req, res) {
 	res.sendfile(staticDir + 'index.html');
 });
 
+app.post("/test", function(req, res) {
+	console.log("gotamsg");
+});
+
 app.post("/addUrl", function(req, res) {
     if (req.user.words === undefined) {
         req.user.words = [req.params.word];

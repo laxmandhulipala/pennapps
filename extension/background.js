@@ -10,7 +10,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 //chrome.tabs.onUpdatedaddListener(function(integer tabId, object changeInfo, Tab tab) {...});
 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 //    if (changeInfo.status === 'complete') {
 /*        chrome.tabs.executeScript(tabId, {
             code: ' if (document.body.innerText.indexOf("Cat") !=-1) {' +
@@ -20,11 +20,16 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 				  '     alert("Cat found!");' + 
 				  ' }'
         }); */
+	if (changeInfo.status === "complete") {
 		chrome.tabs.executeScript(null, { file: "jquery.js" }, function() {
 		  chrome.tabs.executeScript(null, { file: "keypress.js" }, function() {
-	  	    chrome.tabs.executeScript(null, { file: "pageScript.js" });
+			chrome.tabs.insertCSS(null, { file: "pageCss.css" }, function() {
+			  console.log("inserting css");
+	  	      chrome.tabs.executeScript(null, { file: "pageScript.js"} , function(){});
+			});
 		  });
 		});
+	}
 //		chrome.tabs.executeScript(tabId, { file : "pageScript.js" });
  //   }
 });
