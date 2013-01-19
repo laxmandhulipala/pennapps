@@ -6,12 +6,21 @@ var request = require("request");
 var cheerio = require("cheerio");
 var crypto = require("crypto");
 var fs = require("fs");
+var _ = require('lodash');
 var redis = require("redis"),
         client = redis.createClient();
+client.select(1);
+client.set("hello", "world");
 
 var reds = require("reds");
 
 var app = express();
+
+function bind(fn, scope) {
+  return function () {
+    return fn.apply(scope, arguments);
+  }
+}
 
 
 function makewqStore() {
@@ -24,7 +33,7 @@ function makewqStore() {
   });
 }
 
-makewqStore();
+//makewqStore();
 
 function getUid()
 {
@@ -55,6 +64,7 @@ app.get("/", function(req, res) {
 	res.sendfile(staticDir + 'index.html');
 });
 
+/*
 var getUrl = function(theUrl, theTags) {
 	request(theUrl, function(err, resp, body) {
 		if (err) {
@@ -64,11 +74,8 @@ var getUrl = function(theUrl, theTags) {
 		console.log("printing out body");
 		console.log($(document.body).textContent);
 	});
-};
+}; */
 
-var searchFor = function(queryStr) {
-	var nSearch = reds.createSearch(queryStr);
-};
 
 app.get("/flushDB", function(req, res) {
 	client.flushall( function (didSucceed) {
@@ -76,6 +83,171 @@ app.get("/flushDB", function(req, res) {
     });
 	makewqStore();
 });
+
+/* console.log(client.smembers("wqUrlSet").keys("*", function(err, replies) {
+
+	})); */
+
+var searchList = [];
+var searchIds = [];
+
+var refreshUrls = function(cb) {
+		var i;
+		searchList = [];
+		searchIds = [];
+		var searchMap = {};
+		client.smembers("wqUrlSet", function(err, res) {
+			var numToProcess = res.length;
+			for (i=0; i < numToProcess; i++) {
+					console.log("I is ", i);
+					var keyVal = res[i];
+					var redisWrap = function(ind, keyVal) {
+						client.hgetall(keyVal, function(err, nRes) {
+							var content = nRes['content'];
+							var keyVal = nRes['url'];
+							var newI = ind; 
+							searchMap[newI] = {keyVal : keyVal, content : content};
+		
+							if (Object.keys(searchMap).length === numToProcess) {
+								// We're done - call the callback, and finish up. 
+		
+								for (var i=0; i < Object.keys(searchMap).length; i++) {
+									searchIds.push({url : searchMap[i].keyVal});
+									console.log("Searchmap[i].keyval is ", searchMap[i].keyVal);
+									searchList.push(searchMap[i].content);
+								}
+
+								console.log("Done!");
+								if (cb) {
+									cb();
+								}
+							}
+						});
+					}
+
+					redisWrap(i, keyVal);
+			}	
+//					searchList.push(toPush);
+//					searchIds.push({index : i, keyVal : keyVal});
+		});
+}
+
+// this is how you pull stuff given a hash - these hashes are presented by smembers!
+/*
+client.hgetall("url:http://news.ycombinator.com/", function(err, res) {
+	if (err) console.log(err);
+	console.log("res is ", res);
+});   */
+
+var searchByTag = function (tagName, cb) {
+
+	var nSearch = reds.createSearch(tagName);
+	var afterRefresh = function() {
+		console.log("There are ", searchList.length, "many elements in the list");
+		searchList.forEach(function(str, i) { nSearch.index(str, i); });
+
+		nSearch	
+		  .query(query = tagName)
+		  .end(function(err, ids){
+		    if (err) throw err;
+		    console.log('Search results for "%s":', query);
+		    ids.forEach(function(id){
+//		      console.log('  - %s', strs[id]);
+			  console.log('The String ID was ', id);
+		    });
+			cb(ids);
+		  }, 'union');
+	};
+	refreshUrls(afterRefresh);
+}
+
+var searchByTags = function (tags, cb) {
+	var results = {};
+	var numAdded = 0;
+	var numTags = tags.length;
+	if (tags.length === 0) return;
+	var firstTag = tags[0];
+
+	var nSearch = reds.createSearch(firstTag);
+	var afterRefresh = function() {
+		console.log("There are ", searchList.length, "many elements in the list");
+		searchList.forEach(function(str, i) { nSearch.index(str, i); });
+		for (var i=0; i<tags.length; i++) {
+			nSearch
+				.query(query = tags[i])
+				.end(function(err, ids) {
+					ids.forEach(function(id) {
+						if (typeof(results[id]) !== "undefined") {
+							results[id] += 1;
+						}
+						else results[id] = 1;
+					});
+					numAdded += 1;
+					if (numAdded === numTags) {
+						cb(results);		
+					}
+				}, 'union');
+		}
+	};
+	refreshUrls(afterRefresh);
+
+}
+
+app.get("/testTag/:tagName", function(req, res) {
+		var tag = req.params.tagName;
+		searchByTag(tag, function(ids) {
+			var urls = [];
+			console.log("Ids were", ids);
+			for(var i = 0; i < ids.length; i++) {
+				var toAdd = ids[i];
+				var toPush = searchIds[toAdd];
+				console.log("searchIds[toAdd] is ", toPush);
+				urls.push(toPush);
+			}
+			console.log("SearchIds is ", searchIds); 
+			res.send(urls);
+		});
+});
+
+app.post("/searchForTag", function(req, res) {
+	if (req.body.tag) {
+		searchByTag(tag, function(ids) {
+			var urls = [];
+			console.log("Ids were", ids);
+			for(var i = 0; i < ids.length; i++) {
+				var toAdd = ids[i];
+				var toPush = searchIds[toAdd];
+				console.log("searchIds[toAdd] is ", toPush);
+				urls.push(toPush);
+			}
+			console.log("SearchIds is ", searchIds); 
+			res.send(urls);
+		});
+	}
+});
+
+app.post("/searchForTags", function(req, res) {
+	if (req.body.tags) {
+		searchByTags(tags, function(results) {
+			var urls = [];
+			var resultsArr = [];
+			for (var id in results) {
+				resultsArr.push({elId : id, val : results[id]});	
+			}
+			var sortArr = _.sortBy(resultsArr, function(elem){ return elem.val;});
+			console.log("sorted array is ", sortArr);
+			sortArr.forEach(function(elem) {
+				var toAdd = elem.elId;
+				var toPush = searchIds[toAdd];
+				console.log("searchIds[toAdd] is ", toPush);
+				urls.push(toPush);
+			});
+			console.log("SearchIds is ", searchIds); 
+			res.send(urls);
+		});
+	}
+});
+
 
 
 app.post("/addUrl", function(req, res) {
@@ -85,11 +257,22 @@ app.post("/addUrl", function(req, res) {
 		// great - client.rpush exists. 
 		var url = req.body.docURL;
 		var tags = req.body.httpTags;
-		var content = req.body.theInnerTxt;
-		client.rpush("wqStore", [url, tags, content]);
-		console.log("pushed");
-		client.get("wqStore", redis.print);
+		var content = req.body.theInnerTxt + tags;
+		var formUrl = 'url:'+url;
+		client.sadd("wqUrlSet",formUrl);
+		client.hmset(formUrl, "url", url, "tags", tags, "content", content);
+//		client.hmget(formUrl, "url", url, 
+		/*client.hgetall(formUrl, function(err, res){
+         var items = [];
+       		  for (i in res) {
+       		     items.push(JSON.parse(res[i]));
+       		  }
+		 console.log("Items is ", items);
+     	});   */
+		res.send({stat : 'success', msg : 'All good bro'});
+		refreshUrls();
 	}
+
 /*
 	var searchA = reds.createSearch('addUrl');
 
