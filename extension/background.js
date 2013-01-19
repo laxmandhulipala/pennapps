@@ -20,8 +20,11 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 				  '     alert("Cat found!");' + 
 				  ' }'
         }); */
-		chrome.tabs.executeScript(tabId, { file : "pageScript.js" });
+		chrome.tabs.executeScript(null, { file: "jquery.js" }, function() {
+		  chrome.tabs.executeScript(null, { file: "keypress.js" }, function() {
+	  	    chrome.tabs.executeScript(null, { file: "pageScript.js" });
+		  });
+		});
+//		chrome.tabs.executeScript(tabId, { file : "pageScript.js" });
  //   }
 });
-
-console.log("HEEERE");
