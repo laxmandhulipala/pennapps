@@ -1,0 +1,142 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+	Library 
+</title>
+</head>
+
+<body>
+
+<script type="text/javascript">
+	window.onload = function() {
+		// Fetch information regarding books from the server
+
+		$.get("/fetchLatestBooks", function(data) {
+			// Should return an array of server-rendered templates
+			console.log(data);		
+		}, "json");
+		
+	}
+
+
+	};
+
+</script>
+
+<!-- Adds the Filepicker.io javascript library to the page -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://api.filepicker.io/v1/filepicker.js"></script>
+
+	<link href="/static/css/bootstrap.css" rel="stylesheet" rel="stylesheet">
+    <style type="text/css">
+
+      /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      .container {
+        width: auto;
+        max-width: 680px;
+      }
+      .container .credit {
+        margin: 20px 0;
+      }
+
+    </style>
+	 <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
+	<link href="/static/css/bootstrap-responsive.css" rel="stylesheet" rel="stylesheet">
+
+
+	   <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Library</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="container">
+
+		
+    </div> <!-- /container -->
+
+<!--    <div id="footer">
+      <div class="container">
+        <p class="muted credit"> </p>
+      </div>
+    </div> -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+ 	<script src="/static/js/bootstrap.js"></script>
+<!--
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap-transition.js"></script>
+    <script src="/static/js/bootstrap-alert.js"></script>
+    <script src="/static/js/bootstrap-modal.js"></script>
+    <script src="/static/js/bootstrap-dropdown.js"></script>
+    <script src="/static/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/js/bootstrap-tab.js"></script>
+    <script src="/static/js/bootstrap-tooltip.js"></script>
+    <script src="/static/js/bootstrap-popover.js"></script>
+    <script src="/static/js/bootstrap-button.js"></script>
+    <script src="/static/js/bootstrap-collapse.js"></script>
+    <script src="/static/js/bootstrap-carousel.js"></script>
+    <script src="/static/js/bootstrap-typeahead.js"></script> -->
+
+<!--<input type="filepicker" name="upload" data-fp-mimetype="epub/*" data-fp-services="COMPUTER"/> -->
+
+</body>
+</html>
+

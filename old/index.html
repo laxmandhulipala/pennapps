@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> Index Book </title>
+		<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="/static/css/notify.css" rel="stylesheet" type="text/css">
+  		<link href="/static/css/index.css" rel="stylesheet" type="text/css">
+  		<link href="/static/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+  		<link href="/static/css/book-prime.css" rel="stylesheet" type="text/css">
+	</head>	
+	<body>
+
+		<div id="mainDiv">
+
+		</div>
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="http://api.filepicker.io/v1/filepicker.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+	<script src="/static/js/bootstrap.js"></script>
+	<script src="/static/js/Load.js"></script>
+	<script src="/static/js/notify.js"></script>
+	<script src="/static/js/UploadFile.js"></script>
+
+	<script type="text/template" id="uploadPage">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">Caffeine</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="#" id="indexBtn">Home</a></li>
+                            <li class="active"><a href="#" id="uploadBtn">Upload</a></li>
+                            <li><a href="#" id="logoutBtn">Logout</a></li>
+                        </ul>
+                    </div> <!-- .nav-collapse -->
+                </div><!--container-->
+             </div><!--navbar-inner-->
+        </div><!--navbar-->
+
+		 <div class="container">
+            <form class="well">
+                <label>Enter the name of the book</label>
+                <input type="text" class="span3" placeholder="Book Name" id="bookNameField"><br>
+                <button type="submit" class="btn" id="bookNameBtn">Find Book</button>
+            </form>
+        </div> <!-- /container -->
+	
+		<ul id="noteCent" class="njs-notification-center"></ul>
+	</script>
+
+	<script type="text/x-jquery-tmpl" id="indexPage">
+	  <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Caffeine</a>
+	      	<div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#" id="indexBtn">Home</a></li>
+              <li><a href="#" id="uploadBtn">Upload</a></li>
+              <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+          </div><!--.nav-collapse -->
+        </div><!--container-->
+      </div><!--navbar-inner-->
+    </div><!--navbar-->
+    <div class="container">
+			<div id="bookCont">
+			</div>	<!--bookCont-->
+    </div> <!-- /container -->
+	<ul id="noteCent" class="njs-notification-center"></ul>
+	</script>
+
+	<script type="text/template" class="template">
+		<div class="book span2" id="<%=bookId%>">
+			<div class="bookTitle"> <%=bookname%> 
+			</div>
+			<div class="coverImg"> 
+				<img class="coverim" src="<%=coverUrl%>" onerror="imgError(this);"></img>
+			</div>
+		</div>
+	</script>
+
+		<script>
+			window.switchToIndex = function() {
+				console.log("switching to index");
+			  var indTemp = $('#indexPage');
+		      var rend = $.tmpl(indTemp, {});
+			  $('#mainDiv').empty().append(rend);
+			  loadBooks();
+			  $('.book').unbind('click').live('click',function(e) {
+					console.log("Book pressed");
+					var el = e.target;
+					while ($(el).hasClass('book') !== true) {
+					  el = $(el).parent();  
+					}
+					console.log(el);
+					// Now have a handle on the bookId of the book that was clicked. Load up the 'reader' page.  
+					var bookId = el.attr('id');
+					document.location.href='/books/' + bookId + '/reader';
+				});
+
+			  $("#logoutBtn").live("click", function(e) {
+					e.preventDefault();
+					window.location = "/logout";
+				});
+
+			  $('#uploadBtn').unbind('click').live('click', function(e) {
+			  	console.log("in upload button click");
+				  e.preventDefault();
+				  window.switchToUpload();
+			  });
+		
+			  $('#indexBtn').unbind('click').live('click', function(e) {
+				  e.preventDefault();
+				  window.switchToIndex();
+			  });
+
+			 
+			}	
+
+			window.switchToUpload = function() {
+				var upTemp = $('#uploadPage');
+				var rend = $.tmpl(upTemp, {});
+				$('#mainDiv').empty().append(rend);
+	
+				$('#bookNameBtn').unbind('click').click(function(e) {
+					e.preventDefault();
+					var val = $('#bookNameField').val();
+					console.log("Bookname upload was called");
+					if (val != "") {	
+						window.startUpload();
+					}
+				});
+			}
+				
+			window.makeNotification = function(title, body) {
+				 var ncRes = window.nc.notify({
+					title : title,
+					content : body 
+		      	});
+			  	$('#noteCent').append(ncRes).hide().fadeIn(1000);
+			}
+		
+			window.onload = function() {
+				window.nc = notificationCenter();
+				window.switchToIndex();
+			};
+		</script>
+
+
+	</body>
+</html>
+

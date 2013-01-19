@@ -1,0 +1,23 @@
+.left {
+    right: 0%;
+    left: -100%;
+}
+
+.center {
+    right: 100%;
+    left: 0%;
+}
+
+.right {
+    left: 100%;
+    right: 200%;
+
+}
+
+.transition {
+    -webkit-transition: all .4s ease-in-out 0s;
+    -moz-transition: all .4s ease-in-out 0s;
+    -o-transition: all .4s ease-in-out 0s;
+    transition: all .4s ease-in-out 0s;
+}
+

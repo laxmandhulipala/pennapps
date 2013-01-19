@@ -1,0 +1,50 @@
+var booksHandler = function() {
+	var exports = {};
+	exports.init = function() {
+		$("#uploadBtn").click(startUpload);
+	}
+
+	filepicker.setKey('A893bplSjQii6Ve27EX0tz');
+
+	var startUpload = function() {
+		filepicker.pick({
+			extension: '.epub',
+     		container: 'modal',
+	    	services:['COMPUTER'],
+			maxSize : 1024000, // One megabyte
+			},
+			function(FPFile){
+			  console.log(FPFile);
+			  console.log(JSON.stringify(FPFile));
+			  console.log("successful upload");
+			  uploadBook(FPFile.url,FPFile);			  
+			},
+			function(FPError){
+			  console.log(FPError.toString());
+			}
+    	);
+	}
+
+	var uploadBook = function(uploadstr, theFile) {
+			var dat = {toUpload : uploadstr};
+			var stringDat = JSON.stringify(dat);
+			var fileDat = JSON.stringify({toUpload : theFile});
+            $.ajax({
+                url: '/uploadBook',
+                type: 'POST',
+                data: fileDat, 
+                dataType: 'json',
+				contentType: "application/json",
+				cache: false,
+				success : function(result) {
+					console.log("yaaaay", result);
+				},
+				error : function() {
+					console.log("saaaaad");	
+				},
+			});
+		
+	}
+
+	return exports;
+}

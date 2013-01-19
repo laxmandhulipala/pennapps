@@ -1,0 +1,58 @@
+#books li {
+	  box-sizing: border-box;
+    font-size: 1.5em;
+    border-bottom: 1px solid #d0d0d0;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    background-image: -webkit-linear-gradient(top, #e9e9e9, #c0c0c0);
+    background-image:    -moz-linear-gradient(top, #e9e9e9, #c0c0c0); 
+    background-image:     -ms-linear-gradient(top, #e9e9e9, #c0c0c0); 
+    background-image:      -o-linear-gradient(top, #e9e9e9, #c0c0c0); 
+    background-image:         linear-gradient(to bottom, #e9e9e9, #c0c0c0); 
+
+    -webkit-transform: translate3d(0, 0, 0);
+
+    padding: 10px 10px 10px 10px;
+}
+
+#books {
+	  list-style-type: none;
+}
+
+#uploadBtn {
+  	border-top: 1px solid #96d1f8;
+  	background: #abbdc9;
+  	background: -webkit-gradient(linear, left top, left bottom, from(#5a5f63), to(#abbdc9));
+  	background: -webkit-linear-gradient(top, #5a5f63, #abbdc9);
+  	background: -moz-linear-gradient(top, #5a5f63, #abbdc9);
+  	background: -ms-linear-gradient(top, #5a5f63, #abbdc9);
+  	background: -o-linear-gradient(top, #5a5f63, #abbdc9);
+  	padding: 10px 20px;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    border-radius: 13px;
+    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: white;
+    font-size: 19px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+#bookWrapper {
+	  text-align: center;
+}
+
+#uploadBtn:hover {
+  	border-top-color: #6d7173;
+    background: #6d7173;
+    color: #212121;
+}
+
+.uploadBtn:active {
+    border-top-color: #1a4561;
+    background: #1a4561;
+}

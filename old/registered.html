@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Book App</title>
+        <meta name="viewport" content="initial-scale=1.0 maximum-scale=1.0 minimum-scale=1.0 user-scalable=0" />
+
+        <script src="/jquery-1.8.2.min.js"></script>
+        <script src="/addTappableJQPlugin.js"></script>
+        <script src="/Root.js"></script>
+
+        <script>
+            window.onload = function(){
+                new App();
+            }
+        </script>
+    </head>
+    <body>
+        <h1> You're Root! </h1>
+        <button id="logout"> Logout </button>
+        <div>
+            <input id="msg" type="text" placeholder="msg"/>
+            <button id="setMsg"> set msg </button>
+        </div>
+        <button id="listUsers"> List Users </button>
+        <ul id="usersList">
+        </ul>
+    </body>
+</html>

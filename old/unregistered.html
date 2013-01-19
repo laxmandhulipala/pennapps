@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> Login page </title>
+		<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css">
+	  	<link href="/static/css/unregistered.css" rel="stylesheet" type="text/css">
+		<link href="/static/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+	  	<div class="navbar navbar-inverse navbar-fixed-top">
+	      	<div class="navbar-inner">
+		        <div class="container">
+		        	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		            	<span class="icon-bar"></span>
+		            	<span class="icon-bar"></span>
+		            	<span class="icon-bar"></span>
+		          	</a>
+		          	<a class="brand" href="#">Caffeine</a>
+		        </div> <!--container-->
+	      	</div><!--navbar-inner-->
+    	</div><!--navbar-->
+    	<div class="container">
+			<form class="well" id="registerForm">
+			  <h2>Register</h2>
+				<div>
+					<div>
+						<label> Username </label>
+						<input class="span3" id="regUsername" type="username"/>
+					</div>
+					<div>
+						<label> Password </label>
+						<input class="span3" id="regPassword" type="password"/>
+					</div>
+					<div>
+						<button id="register"> Register </button>
+					</div>
+				</div>
+			</form>
+			<form class="well" id="loginForm">
+				<h2>Login</h2>
+				<div>
+					<div>
+						<label> Username </label>
+						<input class="span3" id="loginUsername" type="username"/>
+					</div>
+					<div>
+						<label> Password </label>
+						<input class="span3" id="loginPassword" type="password"/>
+					</div>
+					<div>
+						<button class="submit" id="login"> Login </button>
+					</div>
+				</div>
+			</form>
+    	</div> <!-- /container -->
+    	<!-- Le javascript
+    	================================================== -->
+    	<!-- Placed at the end of the document so the pages load faster -->
+    	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	 	<script src="/static/js/bootstrap.js"></script>
+	  	<script src="/static/js/Unregistered.js"></script>
+	</body>
+</html>
+

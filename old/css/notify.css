@@ -1,0 +1,50 @@
+.copy-note {
+	text-align: right!important;
+	font-size : 12px;
+	margin : 20px 30px 20px 0!important;
+}
+
+.njs-notification-center {
+	position : fixed;
+	z-index: 1;
+	bottom : 30px;
+	right: 30px;
+}
+
+.njs-notification {
+	background: #fafafa;
+	padding : 10px;
+	border : 2px solid #ccc;
+	border-radius : 5px;
+	width : 200px;
+	margin-bottom : 15px;
+	position : relative;
+	overflow: auto;
+}
+
+.njs-notification:last-child {
+	margin-bottom : 0;
+}
+
+.njs-notification-title {
+	margin-right : 15px;
+}
+
+.njs-notification-close-button {
+	cursor : pointer;
+	color : #888;
+	position : absolute;
+	top : 12px;
+	right : 10px;
+}
+
+.njs-notification-close-button:hover {
+	color : black;
+}
+
+.njs-notification-icon {
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+}

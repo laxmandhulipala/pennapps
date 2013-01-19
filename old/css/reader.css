@@ -1,0 +1,49 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html, body {
+    height: 100%;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  	position:fixed;
+    left:0px;
+    bottom:0px;
+    height:50px;
+    width:100%;
+    background:#999;
+}
+
+#specialUl {
+    width : 100%;
+}
+    
+#prevBtn {
+    padding-left : 10px;
+    float : left;
+}
+
+#nextBtn {
+    padding-right : 10px;
+    float: right;
+}
+      
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+    width: auto;
+    max-width: 680px;
+}
