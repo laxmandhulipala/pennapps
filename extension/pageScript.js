@@ -1,8 +1,9 @@
 (function($) {
 	$(document).ready(function(){
 	
-		var $searchHeader = $('.searchHeader');
-		var $search = $('#search');
+//		var $searchHeader = $('.searchHeader');
+
+		var $search = $('#tagMain');
 		
 		// apply fittext to the needy :)
 //		$artHeaderTitle.fitText(1.5);
@@ -24,41 +25,48 @@
 
 		function writeToServ(txtVal) {
 			console.log(chrome);
-			$.ajax({ url: 'http://127.0.0.1:8080/test',
+			var docname = document.URL;
+			var innrTxt = document.body.innerText;
+			console.log("docname is ", docname);
+			var toSend = JSON.stringify({docURL : docname, httpTags : txtVal, theInnerTxt : innrTxt});
+			$.ajax({ url: 'http://127.0.0.1:8080/addUrl',
                 type: 'POST',
-                data: 'box : candy', 
+                data: toSend,
                 dataType: 'json',
                 contentType: "application/json",
-                cache: false,
+//                cache: false,
                 success : function(result) {
                     console.log("yaaaay");
+					console.log("result is ", result);
+					$('#keywords').val("");
                 },
                 error : function() {
                     console.log("saaaaad"); 
+					$('#appInstructions').append($('<h2 class="errh2">Something went wrong with your request</h2>'));
                 },
             });
 		}		
 
 		function showSave () {
 			// need to add to dom
-			var search = $('<section></section>').attr('id', 'search').attr('class', 'manimate');
+			var tagMain = $('<section></section>').attr('id', 'tagMain').attr('class', 'manimate');
 			var row = $('<row></row>');
-			var searchformdiv = $('<div></div>').attr('class', 'searchform');
-			var searchform = $('<form></form>');
+			var tagformdiv = $('<div></div>').attr('class', 'tagform');
+			var tagform = $('<form></form>');
 			var tagInput = $('<input></input>').attr('type', 'text').attr('name', 'keywords').attr('id','keywords').attr('value','').attr('size','20').attr('maxlength','100');
 //			var tagSubmit = $('<input></input>').attr('class', 'submit');
-			searchform.append(tagInput);
-			searchformdiv.append(searchform);
+			tagform.append(tagInput);
+			tagformdiv.append(tagform);
 			var instr = $('<div></div>');
-			var bigH = $('<h1> input space delimited tags and press enter </h1>');
+			var bigH = $('<h1 id="appInstructions"> input space delimited tags and press enter </h1>');
 			instr.append(bigH);
 			row.append(instr);
-			row.append(searchformdiv);
-			search.append(row);
-			$('body').append(search);
+			row.append(tagformdiv);
+			tagMain.append(row);
+			$('body').append(tagMain);
 
-			$('#search').removeClass('searchFadeOut').addClass('searchFadeIn').css('display', 'block');
-			$('#search input[type=text]').attr('autofocus', 'true').focus().val("");
+			$('#tagMain').removeClass('tagFadeOut').addClass('tagFadeIn').css('display', 'block');
+			$('#tagMain input[type=text]').attr('autofocus', 'true').focus().val("");
 
 			$('#keywords').bind('keypress', function(e) {
 				if(e.keyCode==13){
@@ -77,15 +85,16 @@
 		}
 		
 		function hideSearch() {
-			$('#search').removeClass('searchFadeIn').addClass('searchFadeOut');
+			$('#tagMain').removeClass('tagFadeIn').addClass('tagFadeOut');
 			
 			setTimeout(function() {
-				$('#search').css('display', 'none');
+				$('#tagMain').css('display', 'none');
 			}, 500);
 		}
 
-		keypress.combo("escape", function() {
+		keypress.combo("escape", function(e) {
 			hideSearch();
+			e.preventDefault();
 		});
 	
 		keypress.combo("shift s", function() {
@@ -93,7 +102,7 @@
 		});
 	
 		keypress.combo("colon w q", function(e) {
-			var quer = $('#search');	
+			var quer = $('#tagMain');	
 			if(quer) {
 				quer.remove();
 			}
@@ -103,7 +112,7 @@
 		}); 
 
 		keypress.combo("colon x", function(e) {
-			var quer = $('#search');	
+			var quer = $('#tagMain');	
 			if(quer) {
 				quer.remove();
 			}
