@@ -19,7 +19,6 @@ var cacheDir = __dirname+'/cache/';
 app.get("/", function(req, res) {
 	console.log("Sending '/'");
 	res.sendfile(staticDir + 'index.html');
-
 });
 
 
@@ -38,4 +37,5 @@ app.post("/wordLookup", function(req, res) {
 
 
 
-app.listen(8080);
+console.log("Server started");
+app.listen(8888);
