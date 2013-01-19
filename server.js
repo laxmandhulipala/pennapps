@@ -126,9 +126,14 @@ function serveJsFile(request, response) {
     response.sendfile(staticDir + 'js/' + request.params.jsFilename);
 }
 
+function serveImgFile(request, response) {
+    response.sendfile(staticDir + 'img/' + request.params.imgFilename);
+}
+
 app.get("/static/:staticFilename", serveStaticFile);
 app.get("/css/:cssFilename", serveCssFile);
 app.get("/js/:jsFilename", serveJsFile);
+app.get("/img/:imgFilename", serveImgFile);
 
 console.log("Server started");
 app.listen(8080);
