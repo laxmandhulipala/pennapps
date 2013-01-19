@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+input#search {
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 2px;
+	padding: 3px;
+	border-color: #DDD; 
+	color: #908f8f;
+	height: 30px;
+	width: 400px;
+	font-size: 15px;
+	margin-top: 20px;
+	opacity: 0.5;
+	outline: 0;
+font-family: 'Quicksand', sans-serif;
+	}
+
+input#search:hover, focus{
+	opacity:1.0;
+}
+
+.span2{
+font-family: 'Quicksand', sans-serif;
+font-size: 15px;
+}
+
+.footer{
+	position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+}
+
+textarea#body:hover, header input#title:focus {
+  opacity: 1.0;
+}
+
+input#title:hover, header input#title:focus {
+  opacity: 1.0;
+}
