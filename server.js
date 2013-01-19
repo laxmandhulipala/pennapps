@@ -51,4 +51,5 @@ app.get("/static/:staticFilename", serveStaticFile);
 app.get("/css/:cssFilename", serveCssFile);
 app.get("/js/:jsFilename", serveJsFile);
 
-app.listen(8080);
+console.log("Server started");
+app.listen(8888);
