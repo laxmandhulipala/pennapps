@@ -19,15 +19,9 @@ var cacheDir = __dirname+'/cache/';
 app.get("/", function(req, res) {
 	console.log("Sending '/'");
 	res.sendfile(staticDir + 'index.html');
-
 });
 
-
-app.post("/wordLookup", function(req, res) {
-    if (!loggedIn(req, res)) {
-        return;
-    }
-    var user = req.user;
+app.post("/addUrl", function(req, res) {
     if (req.user.words === undefined) {
         req.user.words = [req.params.word];
     } else {
@@ -36,6 +30,21 @@ app.post("/wordLookup", function(req, res) {
     res.send('success');
 });
 
+function serveStaticFile(request, response) {
+    response.sendfile(staticDir + request.params.staticFilename);
+}
 
+function serveCssFile(request, response) {
+	console.log("Sending css file");
+    response.sendfile(staticDir + 'css/' + request.params.cssFilename);
+}
+
+function serveJsFile(request, response) {
+    response.sendfile(staticDir + 'js/' + request.params.jsFilename);
+}
+
+app.get("/static/:staticFilename", serveStaticFile);
+app.get("/css/:cssFilename", serveCssFile);
+app.get("/js/:jsFilename", serveJsFile);
 
 app.listen(8080);
