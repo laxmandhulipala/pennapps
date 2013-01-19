@@ -2,124 +2,57 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Bootstrap Google Map Framework - jsFiddle demo by Trufa</title>
+  <title>wqueue</title>
   <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
   <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css">
   <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
   <link href = "css/style.css" rel = "stylesheet">
-  
-  <style type='text/css'>
-    #content {
-    float:left;
-    margin-top:0px;
-}
-
-#mapCanvas img {
-    max-width: none;
-}
-#maincont{
-margin-top: 20px;
-}
-
-#toggleSidebar {
-    float:left;
-    color:#779DD7;
-    padding:2px 4px;
-}
-
-#sidebar{
- float:left;   
-}
-
-
-.accordion-heading .accordion-toggle-small {
-    display: block;
-    padding: 4px 8px; /*8px 15px;*/
-}
-
-.accordion-inner-small {
-    padding: 4px 8px;  /*9px 15px;*/
-    border-top: 1px solid #e5e5e5;
-}
-
-.no-sidebar {
-    margin-left:0 !important;
-}
-
-.scrollDiv {
-    overflow-y: scroll;
-    display: inline-block;
-    float: none; /* Very important */
-}
-
-  </style>
-  
-
-
-<script type='text/javascript'>//<![CDATA[ 
-$(window).load(function(){
-$.asm = {};
-$.asm.panels = 1;
-
-function sidebar(panels) {
-    $.asm.panels = panels;
-    if (panels === 1) {
-      $('#content').removeClass('span9');
-      $('#content').addClass('span12 no-sidebar');
-      $('#sidebar').hide();
-    } else if (panels === 2) {
-      $('#content').removeClass('span12 no-sidebar');
-      $('#content').addClass('span9');
-      $('#sidebar').show();
-    $('#mapCanvas').width($('#mapCanvas').parent().width());
-    $('#mapCanvas').height($(window).height() - 50);
-    $('#sidebar').height($(window).height() - 50);
-    return google.maps.event.trigger($.asm.theMap, 'resize');
-    }
-};
-
-$('#toggleSidebar').click(function() {
-  if ($.asm.panels === 1) {
-    $('#toggleSidebar i').addClass('icon-chevron-left');
-    $('#toggleSidebar i').removeClass('icon-chevron-right');
-    return sidebar(2);
-  } else {
-    $('#toggleSidebar i').removeClass('icon-chevron-left');
-    $('#toggleSidebar i').addClass('icon-chevron-right');
-    return sidebar(1);
+  <script>
+  var x = [];
+  var newHTML = [];
+  var yo = '';
+  $(document).keypress(function (e) {
+  if (e.which == 13) {
+  	if ($('#search').val()){  	
+  			x.push($('#search').val());
+  			console.log(x);
+  			var y = $('#search').val();
+    	yo += "<div>" + $("#search").val() + "<button onclick = 'del()'></button></div>";
+    	$('#search').val('');
+    	}
+    console.log(newHTML);
+    $("p").empty();
+    $("p").prepend(yo);
   }
-});
+  });
+  
+  function del(){
+	  delete x[0]
+	  var n = '';
+	  x.splice(0,1);
+	  for (i = 0; i<x.length; i++){
+		  console.log(x[i]);
+		  n += "<div>" + x[i] + "<button onclick = 'del()'></button></div>";
+	  }
+    $("p").html(n) ;
+	  
+  }
+  </script>
 
-$(function() {
-  $.asm.theMap = new google.maps.Map(document.getElementById('mapCanvas'));
-});
-});//]]>  
-
-</script>
-
-
+  
+  
+  
 </head>
 <body>
 <div class="container-fluid" id="maincont">
     <div class="row-fluid">
-        <div id="sidebar" class="span2" style="display: none; float:left">
-            <!--Sidebar content-->
-           <span style = "font-size: 18px">Tags</span>
-            <hr style = "margin-left: -10px">
-            hello<br><br>
-            hello<br><br>
-            hello<br><br>
-            hello<br><br>
-            hello<br><br>
-            hello<br><br>
-            hello<br><br>
-        </div>
-        
-        <div id="content" class="span12">
-        <a id="toggleSidebar" href="#" class="toggles"><i class="icon-chevron-right" style = "opacity: .25"></i></a>
+    		<div class = "span10">
 	        <center><input id = "search" placeholder="Search..."></center></div>
+    		<div class = "span2" style = "margin-top: 40px; padding-right: 5px; min-width: 40px;  word-wrap: break-word">
+    		<p style = "margin-right: 5px;"></p>
+    		    		</div>
     </div>
 </div> <!-- /container -->
 
