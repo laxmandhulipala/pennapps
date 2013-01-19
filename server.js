@@ -52,4 +52,4 @@ app.get("/css/:cssFilename", serveCssFile);
 app.get("/js/:jsFilename", serveJsFile);
 
 console.log("Server started");
-app.listen(8888);
+app.listen(8080);

@@ -58,7 +58,7 @@
 			$('body').append(search);
 
 			$('#search').removeClass('searchFadeOut').addClass('searchFadeIn').css('display', 'block');
-			$('#search input[type=text]').attr('autofocus', 'true').focus();
+			$('#search input[type=text]').attr('autofocus', 'true').focus().val("");
 
 			$('#keywords').bind('keypress', function(e) {
 				if(e.keyCode==13){
@@ -71,7 +71,9 @@
 					e.preventDefault();
 				}
 			});
-		
+
+			$('#keywords').val("");
+
 		}
 		
 		function hideSearch() {
@@ -90,22 +92,24 @@
 			console.log("pressed it bro");
 		});
 	
-		keypress.combo("colon w q", function() {
+		keypress.combo("colon w q", function(e) {
 			var quer = $('#search');	
 			if(quer) {
 				quer.remove();
 			}
 			showSave();	
     		console.log("You pressed :wq");
+			e.preventDefault();
 		}); 
 
-		keypress.combo("colon x", function() {
+		keypress.combo("colon x", function(e) {
 			var quer = $('#search');	
 			if(quer) {
 				quer.remove();
 			}
 			showSave();
 			console.log("You pressed :X");
+			e.preventDefault();
 		});
 
 /*		function returnKey(evt) {
