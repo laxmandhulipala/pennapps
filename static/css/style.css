@@ -3,13 +3,36 @@ html, body {
     /* The html and body elements cannot have any padding or margin. */
 }
 
+
+ul{
+	font-family: 'Quicksand', sans-serif;
+}
+
+ul#minitabs{list-style: none;margin: 0;padding: 0 0;
+  border-bottom: 1px solid #DDD;
+   height: 48px;}
+ul#minitabs li{display: inline;margin:  8px}
+ul#minitabs a{text-decoration: none;padding: 0 0 0px;color: #999}
+ul#minitabs a#current{border-color:#ea9e94;color:#ea9e94}
+ul#minitabs a:hover{border-color: #ea9e94;color:#ea9e94 }
+
+.navbar-inner {	
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+.container .navbar .container {
+}
+
 input#search {
 	border-radius: 8px;
 	border-style: solid;
 	border-width: 2px;
 	padding: 3px;
 	border-color: #DDD; 
-	color: #908f8f;
+	color: #d14826;
 	height: 30px;
 	width: 400px;
 	font-size: 15px;
@@ -18,21 +41,62 @@ input#search {
 	outline: 0;
 font-family: 'Quicksand', sans-serif;
 	}
+	
+input::-webkit-input-placeholder {
+    color:    #d14826;
+}
+input :-moz-placeholder {
+    color:    #d14826;
+}
+input ::-moz-placeholder {
+    color:    #d14826;
+}
+input :-ms-input-placeholder {
+    color:    #d14826;
+}
+
+.toggles:hover{
+	opacity: 0.8;
+}
+
+p .button{
+	
+background-color: rgba(255,255,255,0.5);
+border: 0px;
+background-image: url("../img/close.png");
+	background-size: 12px;
+	background-position: center;
+	height: 12px;
+	width: 12px;
+	opacity: 0.1;
+	margin-left: 2px;
+	margin-right: 12px;
+	margin-bottom: 4px;
+	}
+
+p .button:hover{
+	opacity: 0.2;
+}
 
 input#search:hover, focus{
 	opacity:1.0;
 }
 
-.span2{
+.span12 p{
 font-family: 'Quicksand', sans-serif;
 font-size: 15px;
+color: #ea9e94;
+}
+
+.span12 button{
+	border-radius: 40px;
 }
 
 .footer{
 	position:absolute;
    bottom:0;
    width:100%;
-   height:60px;   /* Height of the footer */
+   height:40px;   /* Height of the footer */
 }
 
 textarea#body:hover, header input#title:focus {
@@ -42,3 +106,62 @@ textarea#body:hover, header input#title:focus {
 input#title:hover, header input#title:focus {
   opacity: 1.0;
 }
+
+
+#content {
+    float:left;
+    margin-top:0px;
+}
+
+#mapCanvas img {
+    max-width: none;
+}
+
+#maincont{
+margin-top: 20px;
+}
+
+#toggleSidebar {
+    float:left;
+    color:#779DD7;
+    padding:2px 4px;
+}
+
+#sidebar{
+ float:left;   
+}
+
+
+.accordion-heading .accordion-toggle-small {
+    display: block;
+    padding: 4px 8px; /*8px 15px;*/
+}
+
+.accordion-inner-small {
+    padding: 4px 8px;  /*9px 15px;*/
+    border-top: 1px solid #e5e5e5;
+}
+
+.no-sidebar {
+    margin-left:0 !important;
+}
+
+.scrollDiv {
+    overflow-y: scroll;
+    display: inline-block;
+    float: none; /* Very important */
+}
+
+.span2 a{
+	color: #aaa;
+}
+
+.span2{
+	color: #AAA;
+}
+
+.span2 a:hover{
+	text-decoration: none;
+	color: #830303;
+}
+
