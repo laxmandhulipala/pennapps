@@ -9,50 +9,93 @@
   <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
   <link href = "css/style.css" rel = "stylesheet">
+	<script>
+		var buf = [];
+
+		var buildImg = function (inpTxt) {
+			var img = $('<img></img>'); //Equivalent: $(document.createElement('img'))
+			img.attr('src', 'img/close.png');
+			img.attr('id', inpTxt);
+			img.attr('class', 'button');
+			img.click(function(e) {
+				$(e.target).parent().parent().fadeOut();
+				var id = $(e.target).attr('id');
+				var atLoc = buf.indexOf(id);
+				buf.splice(atLoc, 1);
+				console.log(id, buf);
+			});
+			return img;
+		}
+
+		var addTag = function(inpTxt) {
+			buf.push(inpTxt);
+			var img = buildImg(inpTxt);
+			console.log(inpTxt);
+			var xSpan = $('<span></span>');
+			var nSpan = $('<span></span>');
+			nSpan.html(inpTxt);
+			nSpan.append(img);
+			xSpan.append(nSpan);
+			$(xSpan).hide().appendTo("#tagPara").fadeIn();
+		}
+
+		window.onload = function() {
+			$('#search').bind('keypress', function(e) {
+				if (e.keyCode === 13) {
+					console.log("enter pressed");
+					var inpTxt = $('#search').val().replace(/ /g,'')
+					var inpArr = inpTxt.split(',');
+					inpArr.forEach(function(inp) {
+						if (inp !== "" && (buf.indexOf(inp) === -1)) {
+							addTag(inp);	
+						}
+					});
+				}
+			});
+		}
+	</script> 
+
+<!--
   <script>
-  
-  
   var x = [];
   var newHTML = [];
   var yo = '';
   var num =0;
   $(document).keypress(function (e) {
   if (e.which == 13) {
-  
-  var img = $('<img></img>'); //Equivalent: $(document.createElement('img'))
-img.attr('src', 'img/close.png');
-img.attr('id', $('#search').val());
-img.attr('class', 'button');
-img.click(function(e) {
-	$(e.target).parent().parent().fadeOut();
-	var id = $(e.target).attr('id');
-	var atLoc = x.indexOf(id);
-	x.splice(atLoc, 1);
-	console.log(id, x);
-});
-  
-  
-  
-  	if ($('#search').val() && x.indexOf($('#search').val())==-1){ 	
-  			x.push($('#search').val());
-  			console.log(x);
-  			var y = $('#search').val();
-  			var xSpan = $('<span></span>');
-  			var nSpan = $('<span></span>');
-  			nSpan.html($("#search").val());
-  			nSpan.append(img);
-  			xSpan.append(nSpan);
-    	$('#search').val('');
-    	    $(xSpan).hide().appendTo("p").fadeIn();
-    num++;
-    	}
-    	else{
-	    	$('#search').val('');
-    	}
-    	
+	  	var img = $('<img></img>'); //Equivalent: $(document.createElement('img'))
+		img.attr('src', 'img/close.png');
+		img.attr('id', $('#search').val());
+		img.attr('class', 'button');
+		img.click(function(e) {
+			$(e.target).parent().parent().fadeOut();
+			var id = $(e.target).attr('id');
+			var atLoc = x.indexOf(id);
+			x.splice(atLoc, 1);
+			console.log(id, x);
+		});
+	
+		if ($('#search').val() && x.indexOf($('#search').val())==-1){ 	
+				x.push($('#search').val());
+				console.log(x);
+				var y = $('#search').val();
+				var xSpan = $('<span></span>');
+				var nSpan = $('<span></span>');
+				nSpan.html($("#search").val());
+				nSpan.append(img);
+				xSpan.append(nSpan);
+			$('#search').val('');
+				$(xSpan).hide().appendTo("p").fadeIn();
+				num++;
+		}
+		else{
+			$('#search').val('');
+		}
   }
-  });
-  </script>
+ });
+</script>
+
+-->
 
   
   
@@ -81,7 +124,7 @@ img.click(function(e) {
     <div class="row-fluid">
     		<div class = "span12">
 	        <center><input id = "search" placeholder="Search..."></center>
-	        <center><p style = "margin-right: 5px; margin-top: 10px "></p></center>
+	        <center><p id="tagPara" style = "margin-right: 5px; margin-top: 10px "></p></center>
 	        </div>
     </div>
 </div> <!-- /container -->

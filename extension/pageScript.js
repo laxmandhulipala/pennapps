@@ -29,8 +29,8 @@
 		}); */
 
 		function writeToServ(txtVal) {
-			console.log(chrome);
 			var docname = document.URL;
+			$('#keywords').val("");
 			var innrTxt = document.body.innerText;
 			console.log("docname is ", docname);
 			var toSend = JSON.stringify({docURL : docname, httpTags : txtVal, theInnerTxt : innrTxt});
@@ -43,7 +43,6 @@
                 success : function(result) {
                     console.log("yaaaay");
 					console.log("result is ", result);
-					$('#keywords').val("");
 					$('#appInstructions').text('success! hit esc-:q to quit');
                 },
                 error : function() {
@@ -109,7 +108,7 @@
 	
 		function showColon () {
 			colonOpen = 1;
-			$('#wqFooter').fadeIn(600, function() {
+			$('#wqFooter').fadeIn(300, function() {
 			$('#wqFooterTxt').focus();
 				console.log("showing colon");
 			});
@@ -118,7 +117,7 @@
 		function hideColon () {
 			colonOpen = 0;
 			colonWrite('');
-			$('#wqFooter').fadeOut(600);
+			$('#wqFooter').fadeOut(300);
 		}
 
 		function colonWrite(txtStr) {
