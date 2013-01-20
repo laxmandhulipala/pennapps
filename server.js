@@ -115,15 +115,17 @@ var refreshUrls = function(cb) {
 							var content = nRes['content'];
 							var keyVal = nRes['url'];
 							var hashVal = nRes['urlHash'];
+							var title = nRes['title'];
 							var tags = nRes['tags'];
 							var newI = ind; 
-							searchMap[newI] = {hashVal : hashVal, keyVal : keyVal, content : content, tags : tags};
+							searchMap[newI] = {hashVal : hashVal, keyVal : keyVal, content : content, tags : tags, title : title};
 
 							if (Object.keys(searchMap).length === numToProcess) {
 								// We're done - call the callback, and finish up. 
 		
 								for (var i=0; i < Object.keys(searchMap).length; i++) {
-									searchIds.push({tags : searchMap[i].tags, hashVal : searchMap[i].hashVal, url : searchMap[i].keyVal 
+									searchIds.push({tags : searchMap[i].tags, hashVal : searchMap[i].hashVal, url : searchMap[i].keyVal,
+														title : searchMap[i].title	
 													});
 
 									console.log("Searchmap[i].keyval is ", searchMap[i].keyVal);
@@ -297,6 +299,7 @@ app.post("/addUrl", function(req, res) {
 		var url = req.body.docURL;
 		var tags = req.body.httpTags;
 		var content = req.body.theInnerTxt + tags;
+		var title = req.body.doctitle;
 
 		// need to download a picture of the website and save it into cache/picname.png
 		var urlHash = generateHash(url);
@@ -304,7 +307,7 @@ app.post("/addUrl", function(req, res) {
 		saveUrl(url, toUrl);
 		var formUrl = 'url:'+url;
 		client.sadd("wqUrlSet",formUrl);
-		client.hmset(formUrl, "url", url, "tags", tags, "content", content, "urlHash", urlHash);
+		client.hmset(formUrl, "url", url, "tags", tags, "content", content, "urlHash", urlHash, 'title', title);
 //		client.hmget(formUrl, "url", url, 
 		/*client.hgetall(formUrl, function(err, res){
          var items = [];

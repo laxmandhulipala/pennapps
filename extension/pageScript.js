@@ -29,10 +29,11 @@
 
 		function writeToServ(txtVal) {
 			var docname = document.URL;
+			var doctitle = document.title;
 			$('#keywords').val("");
 			var innrTxt = document.body.innerText;
 			console.log("docname is ", docname);
-			var toSend = JSON.stringify({docURL : docname, httpTags : txtVal, theInnerTxt : innrTxt});
+			var toSend = JSON.stringify({docURL : docname, httpTags : txtVal, theInnerTxt : innrTxt, doctitle : doctitle});
 			$.ajax({ url: 'http://127.0.0.1:8080/addUrl',
                 type: 'POST',
                 data: toSend,
