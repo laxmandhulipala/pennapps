@@ -65,9 +65,9 @@ img.click(function(e) {
 
   
   <span style = "float: right; padding-top: 13px; padding-right: 20px; font-size: 15px">
-  <li><a id = "" href="about.html" target = "">about</a></li>
+  <li><a id = "current" href="" target = "">about</a></li>
   <li><a href="" target = "">help</a></li>
-  <li ><a id = "current" href="" target = "">download</a></li>
+  <li ><a href="download.html" target = "">download</a></li>
   <li><a href="" target = "">login</a></li>
   </span>
 
@@ -81,22 +81,41 @@ img.click(function(e) {
 
       <!-- Three columns of text below the carousel -->
       <center>
-      <div style = "margin: 80px; font-size: 50px; "><h1><span style = "color: #999">download</span> <span style = "color: #d14826">:wqueue</span></h1>
-<h3 style = "margin-top: 20px; margin-left: 80px; margin-right: 80px; margin-bottom:80"><span style = "color: #999">get the</span> <span style = "color: #d14826">:wqueue</span> <span style = "color: #999">Chrome extension to start adding to your </span><span style = "color: #d14826">queue</span></h3>
-      <img src = "img/chrome.png" style = "height: 120px; margin-top:0;"/>
-      </div>
-      </div>
+      <h1 style = "margin: 110px; font-size: 50px"><span style = "color: #BBB">what is</span> <span style = "color: #d14826">:wqueue?</span></h1>
       </center>
 
       <!-- START THE FEATURETTES -->
 
-      <br><br>
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" style = "padding: 0px"src="img/close.png">
+        <h2 class="featurette-heading" style = "color: #d14826">organize and find webpages. </h2>
+        <p class="lead" style = "color: #8b8a89"><span style = "color:#d14826">:wqueue</span> is a web app to save, organize and find webpages you want to access later. you can save webpages to your personal queue, adding helpful tags so you can remember what the page is all about. then you can search through your pages by content, titles, and tags. </p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-left" style = "padding-right: 20px"src="img/close.png">
+        <h2 class="featurette-heading" style = "color: #d14826">how does it work?</h2>
+        <p class="lead" style = "color: #8b8a89">type <span style = "color:#d14826">':w'.</span> on any web page, enter a few tags and hit enter to save that page. to exit the saving process, type <span style = "color:#d14826">'q'.</span> just like that, you've added a page to your queue.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" style = "padding: 0px"src="img/close.png">
+        <h2 class="featurette-heading" style = "color: #d14826">why <span style = "color:#d14826">":wqueue?".</span> </h2>
+        <p class="lead" style = "color: #8b8a89"><span style = "color:#d14826">:wqueue</span> uses vim key bindings for it's core functionality. saving and closing are performed by typing <span style = "color:#d14826">":wq".</span> through our app users save webpages to their own queue, hence the name <span style = "color:#d14826">:wqueue</span>.</p>
+      </div>
+<br><br>
       <hr class="featurette-divider">
       <!-- /END THE FEATURETTES -->
 
 
       <!-- FOOTER -->
       <footer>
+        <p class="pull-right"><a href="#" style = "color: #d14826">Back to top</a></p>
         <p style = "color: #BBB">&copy; 2013 :wqueue &middot; made at pennapps
       </footer>
 

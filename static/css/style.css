@@ -16,6 +16,10 @@ ul#minitabs a{text-decoration: none;padding: 0 0 0px;color: #999}
 ul#minitabs a#current{border-color:#ea9e94;color:#ea9e94}
 ul#minitabs a:hover{border-color: #ea9e94;color:#ea9e94 }
 
+.container marketing{
+	font-family: 'Quicksand', sans-serif;
+}
+
 .navbar-inner {	
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -52,7 +56,7 @@ input ::-moz-placeholder {
     color:    #d14826;
 }
 input :-ms-input-placeholder {
-    color:    #d14826;
+    color:    #d14927;
 }
 
 .toggles:hover{
