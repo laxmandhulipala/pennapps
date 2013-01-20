@@ -5,6 +5,7 @@ html, body {
 
 .wqWrap {
 	position : relative;
+	text-align: center;
 }
 /*	-moz-transition:all 0.6s ease;
 	-webkit-transition:all 0.6s ease;
@@ -25,11 +26,6 @@ html, body {
 	position : relative;
 }
 
-
-.wqWrap > :hover {
-	
-}
-
 /*
 .image-with-text-over-it p {
     left: 0;
@@ -42,10 +38,28 @@ html, body {
 	overflow : wrap;
 	position : absolute;
 	font-color : white;
-	top : 50px;
+	top : 218px;
 	left : 5px;
-	text-align : center;
+	color: #eb9e94;
+	font-size: 13px;
+	font-weight: 500;
+	font-family: 'Quicksand', sans-serif;
 }
+
+
+.wqTitle {
+	display : none;
+	overflow : wrap;
+	position : absolute;
+	font-color : white;
+	top : 200px;
+	left : 5px;
+	color: #eb9e94;
+	font-size: 13px;
+	font-weight: 500;
+	font-family: 'Quicksand', sans-serif;
+}
+
 
 .wqBlur {
 	-moz-box-shadow:0 0 12px rgba(0, 0, 0, 0.6);

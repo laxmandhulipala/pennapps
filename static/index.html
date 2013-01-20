@@ -16,8 +16,8 @@
 
 	<script type="text/html" id="pageTemplate">
 		<div class="span4 wqWrap" style = "margin-top: 30px;">
-	  		<img id = "a" class="wqFrame" style = "border: 2px solid; padding: -10px; border-radius: 13px; border-color: #DDD" src=<%= 			pageUrl %> ></img>
-			<p class="wqWrapText"> <%= tags %> </p>
+	  		<A HREF=<%= url %> ><img id = "a" class="wqFrame" style = "border: 2px solid; padding: -15px; border-radius: 13px; border-color: #DDD" src=<%= 			pageUrl %> </img> </A>
+			<p class="wqWrapText"> tags:&nbsp;&nbsp;<%= tags %> </p>
 	  	</div>
 	</script>
 
@@ -167,8 +167,12 @@
 						var context = {}
 						var hashVal = resObj.hashVal;
 						var tags = resObj.tags;
+						var title = resObj.title;
+						var url = resObj.url;
 						context['pageUrl'] = 'cache/'+ hashVal + '.png';
 						context['tags'] = tags;
+						context['title'] = title;
+						context['url'] = url;
 						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn();
 						console.log("adding this context, ", context);
 					});
@@ -208,6 +212,7 @@
 
 		var searchForTags = function(tags) {
 			var toSend = JSON.stringify({tags : tags});
+			console.log("tags:" + tags);
 			$.ajax({ url: '/searchForTags',
                 type: 'POST',
                 data: toSend,
@@ -218,8 +223,15 @@
 				var template = $("#pageTemplate").html();
 					result.forEach(function(resObj) {
 						var context = {}
+						console.log("res obj is ", resObj);
 						var hashVal = resObj.hashVal;
+						var sentTags = resObj.tags;
+						var title = resObj.title;
+						var url = resObj.url;
 						context['pageUrl'] = 'cache/'+ hashVal + '.png';
+						context['tags'] = sentTags;
+						context['title'] = title;
+						context['url'] = url;
 						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn(); 
 						console.log("adding this context, ", context); 
 					});
@@ -306,7 +318,7 @@
 	        <center><p id="tagPara" style = "margin-right: 5px; margin-top: 15px "></p></center>
 	        </div>
     </div>
-    <div class = "bookmarkWrapper" style = "text-align:center; margin-bottom: 80px">
+    <div class = "bookmarkWrapper" style = "text-align:center; margin-bottom: 80px; margin-top: 10px">
 	<div id="bookmarkDiv" class = "row">
 			
 	</div>
