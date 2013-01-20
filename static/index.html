@@ -126,26 +126,9 @@
 			clear.hide().appendTo("#clear").fadeIn();
 			
 		}
-		
-		
-		var loadAll = function(){
-			$.ajax({url:'/allBookmarks',
-				type: 'GET',
-				dataType: 'json',
-				contentType: "application/json",
-				success : function(result) {
-					console.log("result is ", result);
-					var template = $("#pageTemplate").html();
-					result.forEach(function(resObj) {
-						var context = {}
-						var hashVal = resObj.hashVal;
-						var tags = resObj.tags;
-						context['pageUrl'] = 'cache/'+ hashVal + '.png';
-						context['tags'] = tags;
-						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn();
-						console.log("adding this context, ", context);
-					});
-					$('.wqWrap').hover(function(e) {
+	
+		var checkHover = function()  {
+			$('.wqWrap').hover(function(e) {
 						console.log($(e.target));
 						if ($(e.target).hasClass('wqFrame')) {
 							$(e.target).addClass('wqBlur');
@@ -169,6 +152,27 @@
 						console.log("in");
 						e.preventDefault();
 					});
+		}	
+		
+		
+		var loadAll = function(){
+			$.ajax({url:'/allBookmarks',
+				type: 'GET',
+				dataType: 'json',
+				contentType: "application/json",
+				success : function(result) {
+					console.log("result is ", result);
+					var template = $("#pageTemplate").html();
+					result.forEach(function(resObj) {
+						var context = {}
+						var hashVal = resObj.hashVal;
+						var tags = resObj.tags;
+						context['pageUrl'] = 'cache/'+ hashVal + '.png';
+						context['tags'] = tags;
+						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn();
+						console.log("adding this context, ", context);
+					});
+					checkHover();
                 },
                 error : function() {
 					console.log("server error");
@@ -194,6 +198,7 @@
 						
 						console.log("adding this context, ", context);
 					});
+					checkHover();
                 },
                 error : function() {
 					console.log("server error");
@@ -218,6 +223,7 @@
 						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn(); 
 						console.log("adding this context, ", context); 
 					});
+					checkHover();
                 },
                 error : function() {
 					console.log("server error");
