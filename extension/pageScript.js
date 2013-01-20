@@ -67,7 +67,7 @@
 			$('body').append(foot);
 
 			$('#wqFooterTxt').bind('keypress', function(e) {
-				if(e.keyCode==13){
+				if(e.keyCode==13) {
 					// Enter pressed... do anything here...
 					console.log("Enter was pressed - first check for non-empty input");
 					var txtVal = $('#wqFooterTxt').val();

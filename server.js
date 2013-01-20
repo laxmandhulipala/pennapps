@@ -9,6 +9,7 @@ var fs = require("fs");
 var _ = require('lodash');
 var redis = require("redis"),
         client = redis.createClient();
+
 client.select(1);
 client.set("hello", "world");
 
@@ -40,6 +41,13 @@ function getUid()
     var current_date = (new Date()).valueOf().toString();
     var random = Math.random().toString();
     return crypto.createHash('sha1').update(current_date + random).digest('hex');
+}
+
+function generateHash(url) 
+{
+	var current_date = (new Date()).valueOf().toString();
+	var random = Math.random().toString();
+	return crypto.createHash('sha1').update(current_date + random).digest('hex');
 }
 
 
@@ -120,14 +128,17 @@ var refreshUrls = function(cb) {
 						client.hgetall(keyVal, function(err, nRes) {
 							var content = nRes['content'];
 							var keyVal = nRes['url'];
+							var hashVal = nRes['urlHash'];
 							var newI = ind; 
-							searchMap[newI] = {keyVal : keyVal, content : content};
+							searchMap[newI] = {hashVal : hashVal, keyVal : keyVal, content : content};
 		
 							if (Object.keys(searchMap).length === numToProcess) {
 								// We're done - call the callback, and finish up. 
 		
 								for (var i=0; i < Object.keys(searchMap).length; i++) {
-									searchIds.push({url : searchMap[i].keyVal});
+									searchIds.push({hashVal : searchMap[i].hashVal, url : searchMap[i].keyVal 
+													});
+
 									console.log("Searchmap[i].keyval is ", searchMap[i].keyVal);
 									searchList.push(searchMap[i].content);
 								}
@@ -207,6 +218,14 @@ var searchByTags = function (tags, cb) {
 	refreshUrls(afterRefresh);
 }
 
+app.get("/testit", function(req,res) {
+	url2png.readURL('news.ycombinator.com', 300, 300).pipe(fs.createWriteStream('cache/ycombinator.com'));
+});
+
+var saveUrl = function(url, to) {
+	url2png.readURL(url, 600, 600).pipe(fs.createWriteStream(to));
+};
+
 app.get("/testTag/:tagName", function(req, res) {
 		var tag = req.params.tagName;
 		searchByTag(tag, function(ids) {
@@ -225,6 +244,7 @@ app.get("/testTag/:tagName", function(req, res) {
 
 app.post("/searchForTag", function(req, res) {
 	if (req.body.tag) {
+		var tag = req.body.tag;
 		searchByTag(tag, function(ids) {
 			var urls = [];
 			console.log("Ids were", ids);
@@ -239,6 +259,7 @@ app.post("/searchForTag", function(req, res) {
 		});
 	}
 });
+
 
 app.post("/searchForTags", function(req, res) {
 	if (req.body.tags) {
@@ -271,9 +292,14 @@ app.post("/addUrl", function(req, res) {
 		var url = req.body.docURL;
 		var tags = req.body.httpTags;
 		var content = req.body.theInnerTxt + tags;
+
+		// need to download a picture of the website and save it into cache/picname.png
+		var urlHash = generateHash(url);
+		var toUrl = 'cache/'+ urlHash + '.png';	
+		saveUrl(url, toUrl);
 		var formUrl = 'url:'+url;
 		client.sadd("wqUrlSet",formUrl);
-		client.hmset(formUrl, "url", url, "tags", tags, "content", content);
+		client.hmset(formUrl, "url", url, "tags", tags, "content", content, "urlHash", urlHash);
 //		client.hmget(formUrl, "url", url, 
 		/*client.hgetall(formUrl, function(err, res){
          var items = [];
@@ -282,6 +308,7 @@ app.post("/addUrl", function(req, res) {
        		  }
 		 console.log("Items is ", items);
      	});   */
+		
 		res.send({stat : 'success', msg : 'All good bro'});
 		refreshUrls();
 	}
