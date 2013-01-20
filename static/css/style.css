@@ -63,6 +63,29 @@ input :-ms-input-placeholder {
 	opacity: 0.8;
 }
 
+
+#clear .button{
+	
+background-color: rgba(255,255,255,0.5);
+border: 0px;
+background-image: url("../img/close.png");
+	background-size: 30px;
+	background-position: center;
+	height: 30px;
+	width: 30px;
+	opacity: 0.1;
+	margin-left: 2px;
+	margin-right: 12px;
+	margin-bottom: 4px;
+	margin-top: 20px;
+	}
+
+#clear .button:hover{
+	opacity: 0.2;
+}
+
+
+
 p .button{
 	
 background-color: rgba(255,255,255,0.5);

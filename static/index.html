@@ -47,11 +47,28 @@
 					var inpArr = inpTxt.split(',');
 					inpArr.forEach(function(inp) {
 						if (inp !== "" && (buf.indexOf(inp) === -1)) {
-							addTag(inp);	
+							addTag(inp);
+										$("#search").val('');	
+						}
+						else{
+										$("#search").val('');
 						}
 					});
 				}
 			});
+			
+			
+			var clear = $('<img></img>'); //Equivalent: $(document.createElement('img'))
+			clear.attr('src', 'img/close.png');
+			clear.attr('class', 'button');
+			clear.click(function(e) {
+				buf = [];
+				console.log(buf);
+				$("#tagPara").children().fadeOut();
+				$("#search").val('');
+			});
+			clear.hide().appendTo("#clear").fadeIn();
+			
 		}
 
 		var searchForTag = function(tag) {
@@ -144,12 +161,18 @@
 <div class="container-fluid" id="maincont">
     <div class="row-fluid">
     		<div class = "span12">
-	        <center><input id = "search" placeholder="Search..."></center>
+	        <span><center><input id = "search" placeholder="Search..."><span id = "clear" style = "margin-left: 10px"></span></center></span>
 	        <center><p id="tagPara" style = "margin-right: 5px; margin-top: 10px "></p></center>
 	        </div>
     </div>
 	<div id="bookmarkDiv">
-	
+			<script>
+			function clear(){
+			alert();
+			buf = [];
+			console.log(buf);
+		}
+		</script>
 	</div>
 </div> <!-- /container -->
 
