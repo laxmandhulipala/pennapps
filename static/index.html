@@ -91,7 +91,7 @@
 										$("#search").val('');
 						}
 					});
-					searchForTag(firstInp);
+					searchForTags(buf);
 				}
 			});
 			
@@ -126,6 +126,30 @@
 						$("#bookmarkDiv").append(_.template(template,context));
 						console.log("adding this context, ", context);
 					});
+                },
+                error : function() {
+					console.log("server error");
+                },
+            });
+		}
+
+		var searchForTags = function(tags) {
+			var toSend = JSON.stringify({tags : tags});
+			$.ajax({ url: '/searchForTags',
+                type: 'POST',
+                data: toSend,
+                dataType: 'json',
+                contentType: "application/json",
+                success : function(result) {
+					console.log("result is ", result);
+/*					var template = $("#pageTemplate").html();
+					result.forEach(function(resObj) {
+						var context = {}
+						var hashVal = resObj.hashVal;
+						context['pageUrl'] = 'cache/'+ hashVal + '.png';
+						$("#bookmarkDiv").append(_.template(template,context)); 
+						console.log("adding this context, ", context); 
+					}); */
                 },
                 error : function() {
 					console.log("server error");
@@ -191,7 +215,7 @@
   <li><a href="about.html" target = "">about</a></li>
   <li><a href="" target = "">help</a></li>
   <li ><a href="" target = "">download</a></li>
-  <li><a href="" target = "">login</a></li>
+  <li><a href="login.html" target = "">login</a></li>
   </span>
 
   
