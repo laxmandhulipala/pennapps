@@ -64,6 +64,21 @@ app.get("/", function(req, res) {
 	res.sendfile(staticDir + 'index.html');
 });
 
+app.get("/index.html", function(req, res) {
+	console.log("Sending '/'");
+	res.sendfile(staticDir + 'index.html');
+});
+
+app.get("/download.html", function(req, res) {
+	console.log("Sending '/'");
+	res.sendfile(staticDir + 'download.html');
+});
+
+app.get("/about.html", function(req, res) {
+	console.log("Sending '/'");
+	res.sendfile(staticDir + 'about.html');
+});
+
 /*
 var getUrl = function(theUrl, theTags) {
 	request(theUrl, function(err, resp, body) {
