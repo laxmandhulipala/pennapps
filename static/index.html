@@ -33,7 +33,9 @@ img.click(function(e) {
   
   
   
+  
   	if ($('#search').val() && x.indexOf($('#search').val())==-1){ 	
+  			if ($('#search').val().indexOf(",")==-1){
   			x.push($('#search').val());
   			console.log(x);
   			var y = $('#search').val();
@@ -42,6 +44,29 @@ img.click(function(e) {
   			nSpan.html($("#search").val());
   			nSpan.append(img);
   			xSpan.append(nSpan);
+  			}
+  			
+  			else{
+  				var search_string = $('#search').val().replace(/\s+/g, '');
+  				console.log(search_string);
+  				var sep = search_string.split(",");
+	  			for (var i = 0; i in sep; i++){
+		  			if (sep[i]!=""){
+		  				x.push(sep[i]);
+		  				console.log(sep[i]);
+		  				var xSpan = $('<span></span>');
+		  				var nSpan = $('<span></span>');
+		  				nSpan.html(sep[i]);
+		  				nSpan.append(img);
+		  				xSpan.append(nSpan);
+		  				$('#search').val('');
+    	    $(xSpan).hide().appendTo("p").fadeIn();
+    	    console.log(xSpan);
+		  			}
+	  			}
+	  			
+	  			
+  			}		
     	$('#search').val('');
     	    $(xSpan).hide().appendTo("p").fadeIn();
     num++;
@@ -67,7 +92,7 @@ img.click(function(e) {
   <span style = "float: right; padding-top: 13px; padding-right: 20px; font-size: 15px">
   <li><a href="about.html" target = "">about</a></li>
   <li><a href="" target = "">help</a></li>
-  <li ><a href="" target = "">download</a></li>
+  <li ><a href="download.html" target = "">download</a></li>
   <li><a href="" target = "">login</a></li>
   </span>
 
