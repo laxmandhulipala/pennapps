@@ -10,6 +10,7 @@ var _ = require('lodash');
 var redis = require("redis"),
         client = redis.createClient();
 
+
 client.select(1);
 client.set("hello", "world");
 
@@ -340,6 +341,10 @@ function serveStaticFile(request, response) {
     response.sendfile(staticDir + request.params.staticFilename);
 }
 
+function serveCacheFile(request, response) {
+    response.sendfile(cacheDir + request.params.cacheFilename);
+}
+
 function serveCssFile(request, response) {
 	console.log("Sending css file");
     response.sendfile(staticDir + 'css/' + request.params.cssFilename);
@@ -354,6 +359,7 @@ function serveImgFile(request, response) {
 }
 
 app.get("/static/:staticFilename", serveStaticFile);
+app.get("/cache/:cacheFilename", serveCacheFile);
 app.get("/css/:cssFilename", serveCssFile);
 app.get("/js/:jsFilename", serveJsFile);
 app.get("/img/:imgFilename", serveImgFile);
