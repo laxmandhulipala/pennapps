@@ -5,40 +5,53 @@
   <title>wqueue</title>
   <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
   <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
-  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
   <link href = "css/style.css" rel = "stylesheet">
   <script>
+  
+  
   var x = [];
   var newHTML = [];
   var yo = '';
+  var num =0;
   $(document).keypress(function (e) {
   if (e.which == 13) {
-  	if ($('#search').val()){  	
+  
+  var img = $('<img></img>'); //Equivalent: $(document.createElement('img'))
+img.attr('src', 'img/close.png');
+img.attr('id', $('#search').val());
+img.attr('class', 'button');
+img.click(function(e) {
+	$(e.target).parent().parent().fadeOut();
+	var id = $(e.target).attr('id');
+	var atLoc = x.indexOf(id);
+	x.splice(atLoc, 1);
+	console.log(id, x);
+});
+  
+  
+  
+  	if ($('#search').val() && x.indexOf($('#search').val())==-1){ 	
   			x.push($('#search').val());
   			console.log(x);
   			var y = $('#search').val();
-    	yo += "<div>" + $("#search").val() + "<button onclick = 'del()'></button></div>";
+  			var xSpan = $('<span></span>');
+  			var nSpan = $('<span></span>');
+  			nSpan.html($("#search").val());
+  			nSpan.append(img);
+  			xSpan.append(nSpan);
     	$('#search').val('');
+    	    $(xSpan).hide().appendTo("p").fadeIn();
+    num++;
     	}
-    console.log(newHTML);
-    $("p").empty();
-    $("p").prepend(yo);
+    	else{
+	    	$('#search').val('');
+    	}
+    	
   }
   });
-  
-  function del(){
-	  delete x[0]
-	  var n = '';
-	  x.splice(0,1);
-	  for (i = 0; i<x.length; i++){
-		  console.log(x[i]);
-		  n += "<div>" + x[i] + "<button onclick = 'del()'></button></div>";
-	  }
-    $("p").html(n) ;
-	  
-  }
   </script>
 
   
@@ -46,20 +59,36 @@
   
 </head>
 <body>
+
+<ul id="minitabs" style = "-moz-user-select: none;-webkit-user-select: none;' onselectstart='return false; min-width: 430px">
+  <li><img src = "img/Logo2.png" style = "padding-left: 20px; height: 40px; width: 108.5px; margin-top: 0px; float: left"/></li>
+
+  
+  <span style = "float: right; padding-top: 13px; padding-right: 20px; font-size: 15px">
+  <li><a href="" target = "">about</a></li>
+  <li><a href="" target = "">help</a></li>
+  <li ><a href="" target = "">download</a></li>
+  <li><a href="" target = "">login</a></li>
+  </span>
+
+  
+</ul>
+
+
+
+
 <div class="container-fluid" id="maincont">
     <div class="row-fluid">
-    		<div class = "span10">
-	        <center><input id = "search" placeholder="Search..."></center></div>
-    		<div class = "span2" style = "margin-top: 40px; padding-right: 5px; min-width: 40px;  word-wrap: break-word">
-    		<p style = "margin-right: 5px;"></p>
-    		    		</div>
+    		<div class = "span12">
+	        <center><input id = "search" placeholder="Search..."></center>
+	        <center><p style = "margin-right: 5px; margin-top: 10px "></p></center>
+	        </div>
     </div>
 </div> <!-- /container -->
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
 <div class = "footer">
-<hr>
+
+</div>
 </div>
 
   
