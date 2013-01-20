@@ -10,6 +10,7 @@ var _ = require('lodash');
 var redis = require("redis"),
         client = redis.createClient();
 
+var url2png = require('url2png')('P50FB82641571C', 'SC5361FA74C0EA');
 
 client.select(1);
 client.set("hello", "world");
@@ -86,6 +87,11 @@ app.get("/download.html", function(req, res) {
 app.get("/about.html", function(req, res) {
 	console.log("Sending '/'");
 	res.sendfile(staticDir + 'about.html');
+});
+
+app.get("/test.html", function(req, res) {
+	console.log("Sending '/'");
+	res.sendfile(staticDir + 'test.html');
 });
 
 /*
