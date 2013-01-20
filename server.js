@@ -10,6 +10,8 @@ var _ = require('lodash');
 var redis = require("redis"),
         client = redis.createClient();
 
+var url2png = require('url2png')('P50FB82641571C', 'SC5361FA74C0EA');
+
 
 client.select(1);
 client.set("hello", "world");
@@ -88,8 +90,7 @@ app.get("/about.html", function(req, res) {
 	res.sendfile(staticDir + 'about.html');
 });
 
-/*
-var getUrl = function(theUrl, theTags) {
+/* var getUrl = function(theUrl, theTags) {
 	request(theUrl, function(err, resp, body) {
 		if (err) {
 			console.log("There was an error");
@@ -99,7 +100,6 @@ var getUrl = function(theUrl, theTags) {
 		console.log($(document.body).textContent);
 	});
 }; */
-
 
 app.get("/flushDB", function(req, res) {
 	client.flushall( function (didSucceed) {
@@ -189,10 +189,11 @@ var searchByTag = function (tagName, cb) {
 }
 
 var searchByTags = function (tags, cb) {
-	var results = {};
+	var results;
 	var numAdded = 0;
 	var numTags = tags.length;
 	if (tags.length === 0) return;
+
 	var firstTag = tags[0];
 
 	var nSearch = reds.createSearch(firstTag);
@@ -203,12 +204,20 @@ var searchByTags = function (tags, cb) {
 			nSearch
 				.query(query = tags[i])
 				.end(function(err, ids) {
+					var nResults = [];
 					ids.forEach(function(id) {
-						if (typeof(results[id]) !== "undefined") {
+						nResults.push(id);
+					/*	if (typeof(results[id]) !== "undefined") {
 							results[id] += 1;
 						}
-						else results[id] = 1;
+						else results[id] = 1; */
 					});
+					if (numAdded === 0) {
+						results = nResults;
+					}
+					else {
+						results = _.intersection(results, nResults);	
+					}
 					numAdded += 1;
 					if (numAdded === numTags) {
 						cb(results);		
