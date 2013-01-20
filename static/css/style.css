@@ -27,6 +27,15 @@ ul#minitabs a:hover{border-color: #ea9e94;color:#ea9e94 }
   padding: 0;
 }
 
+.bookmarkWrapper{
+	text-align: center;
+}
+
+#bookmarkDiv{
+	text-align: center;
+
+}
+
 .container .navbar .container {
 }
 

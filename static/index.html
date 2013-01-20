@@ -57,6 +57,13 @@
 				var atLoc = buf.indexOf(id);
 				buf.splice(atLoc, 1);
 				console.log(id, buf);
+				$("#bookmarkDiv").children().remove();
+				if (buf.count>0){
+					searchForTags(buf);
+				}
+				else{
+					loadAll();
+				}
 			});
 			return img;
 		}
@@ -71,7 +78,7 @@
 			nSpan.append(img);
 			xSpan.append(nSpan);
 			$(xSpan).hide().appendTo("#tagPara").fadeIn();
-			$("#bookmarkDiv").children().empty();
+			$("#bookmarkDiv").children().remove();
 		}
 
 		window.onload = function() {
@@ -108,6 +115,8 @@
 				console.log(buf);
 				$("#tagPara").children().fadeOut();
 				$("#search").val('');
+				$("#bookmarkDiv").children().remove();
+				loadAll();
 			});
 			clear.hide().appendTo("#clear").fadeIn();
 			
@@ -152,7 +161,7 @@
 						var context = {}
 						var hashVal = resObj.hashVal;
 						context['pageUrl'] = 'cache/'+ hashVal + '.png';
-						$("#bookmarkDiv").append(_.template(template,context)).show();
+						
 						console.log("adding this context, ", context);
 					});
                 },
@@ -171,14 +180,14 @@
                 contentType: "application/json",
                 success : function(result) {
 					console.log("result is ", result);
-/*					var template = $("#pageTemplate").html();
+				var template = $("#pageTemplate").html();
 					result.forEach(function(resObj) {
 						var context = {}
 						var hashVal = resObj.hashVal;
 						context['pageUrl'] = 'cache/'+ hashVal + '.png';
-						$("#bookmarkDiv").append(_.template(template,context)); 
+						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn(); 
 						console.log("adding this context, ", context); 
-					}); */
+					});
                 },
                 error : function() {
 					console.log("server error");
@@ -259,10 +268,10 @@
     <div class="row-fluid">
     		<div class = "span12">
 	        <span><center><input id = "search" placeholder="Search..."><span id = "clear" style = "margin-left: 10px"></span></center></span>
-	        <center><p id="tagPara" style = "margin-right: 5px; margin-top: 10px "></p></center>
+	        <center><p id="tagPara" style = "margin-right: 5px; margin-top: 15px "></p></center>
 	        </div>
     </div>
-    <div class = "bookmarkWrapper" style = "text-align:center">
+    <div class = "bookmarkWrapper" style = "text-align:center; margin-bottom: 80px">
 	<div id="bookmarkDiv" class = "row">
 			
 	</div>

@@ -1,0 +1,318 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Simple hover effects with CSS(webkit) filters</title>
+		<base href="http://thecodeplayer.com/"/>
+	
+		<!-- Codemirror -->
+		<link rel="stylesheet" href="css/codemirror.css">
+		<link rel="stylesheet" href="js/jui/css/ui-lightness/jquery-ui-1.8.17.custom.css">
+		<link href="css/walkthrough.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Crete+Round:400italic' rel='stylesheet' type='text/css'>
+		<script src="js/prefixfree.js" type="text/javascript"></script>
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+		<link rel="apple-touch-icon" href="apple_icon.png"/>
+		<!--<link href="css/walkthrough_media.css" rel="stylesheet">-->
+		<!--<link href='http://fonts.googleapis.com/css?family=Crete+Round:400italic' rel='stylesheet' type='text/css'>-->
+		
+				<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<script>
+	(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+		
+	
+	<header class="editor_snap">
+		<ul>
+			<li>
+				<a href="http://thecodeplayer.com/walkthrough/simple-hover-effects-with-css3-filters" id="wt_name">
+										Simple hover effects with CSS(webkit) filters				</a>
+			</li>
+		</ul>
+	
+	</header>
+			<!--<div id="intro_controls">
+				<span class="play play_walkthrough" href="#">Play Walkthrough</span>
+				<span class="view_code" href="#">View code</span>
+			</div>-->
+		
+		
+			<a id="intro_handle">&laquo;</a>
+			<!--<a href="" id="goback">back</a>-->
+		
+		</div>
+				<section class="editor_pane vertical" style="position: absolute;">
+			<div id="tabs" class="tabs">
+				<!--<a href="http://thecodeplayer.com/walkthrough/simple-hover-effects-with-css3-filters" id="wt_name">Simple hover effects with CSS(webkit) filters</a>-->
+				<ol>
+					<!--<li><a id="editor_pane_handle" class="enabled">:::</a></li>-->
+					<li><a href="#" class="code_html enabled" data-type="html">HTML</a></li>
+					<li><a href="#" class="code_css enabled" data-type="css">CSS</a></li>
+					<li><a href="#" class="code_js enabled" data-type="js">JS</a></li>
+				</ol>
+			</div>
+
+			<form id="code" class="code">
+
+				<!-- html -->
+				<div id="html" class="code_canvas enabled">
+					<!--<span class="editor_label">HTML</span>-->
+					<textarea name="html" id="html_textarea"></textarea>
+				</div>
+	
+				<!-- CSS -->
+				<div id="css" class="code_canvas enabled">
+					<!--<span class="editor_label">CSS</span>-->
+					<textarea name="css" id="css_textarea"></textarea>
+				</div>
+	
+				<!-- Javascript -->
+				<div id="js" class="code_canvas enabled">
+					<!--<span class="editor_label">JS</span>-->
+					<textarea name="js" id="js_textarea"></textarea>
+				</div>
+
+			</form>
+			<!--<div class="ui-resizable-handle ui-resizable-e"></div>-->
+		</section>
+
+		<div id="output" class="output">
+			<iframe src="iframe.html" id="docCanvas" class="one" ></iframe>
+		</div>
+	</div>
+	<div id="player_controls">
+		<div class="wt_info">
+			<!--<a href="http://thecodeplayer.com/walkthrough/simple-hover-effects-with-css3-filters" id="wt_name">Simple hover effects with CSS(webkit) filters</a>-->
+			<a href="http://thecodeplayer.com/" id="tcp_name">TheCodePlayer<span class="superscript">alpha</span></a>
+		</div>
+		<div class="container">
+			<div id="slider"></div>
+			<!--<p class="logo"><a href="http://thecodeplayer.com/">TheCodePlayer</a></p>-->
+						<div class="social">
+				<div class="facebook social_box">
+					<div class="fb-like" data-href="http://thecodeplayer.com/walkthrough/simple-hover-effects-with-css3-filters" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial"></div>
+				</div>
+		
+				<div class="gplus social_box"><g:plusone size="medium"></g:plusone></div>
+		
+				<div class="twitter social_box">
+					<a href="https://twitter.com/share" class="twitter-share-button" data-text="Simple hover effects with CSS(webkit) filters" data-via="thecodeplayer" data-count="none">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				</div>
+				
+				<!--<div class="flattr social_box">
+					<a href="http://flattr.com/thing/846512/TheCodePlayer" target="_blank">
+						<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
+					</a>
+				</div>-->
+			</div>
+						<div id="toggle_controls">
+								<p class="related"><span class="show_related_wts">Related</span></p>
+								<p class="comments">
+					<span class="toggle_comments">17 Comments</span>
+				</p>
+				<p><span class="toggle_description active">Description</span></p>
+			</div>
+			<p id="control_buttons">
+				<span href="" class="play"><span></span></span>
+				<!--<a href="" class="1x speed_control">1x</a>-->
+				<!--<a href="" class="2x speed_control">2x</a>-->
+				<span class="5x speed_control">5x</span>
+				<span class="10x speed_control active">10x</span>
+				<span class="15x speed_control">15x</span>
+				<span class="20x speed_control">20x</span>
+				<!--<a href="" class="Ux speed_control">Ux</a>-->
+				<!--<a id="approx_time"></a>-->
+			</p>
+			<!--<p class="home"><a href="http://thecodeplayer.com/">Home</a></p>-->
+			<!--<p id="slide_ps" style="float: right; padding: 5px; color: #fff;"></p>-->
+		</div>
+	</div>
+		<div class="related_wts">
+		<ul class="wt_listing related_listing">
+			<li>
+			<a class="related_wt_label" href="walkthrough/make-a-simple-cloud-in-css3"><span class="label_holder">Make a simple cloud in CSS3</span></a>
+			<div class="wt_screenshot">
+				<a href="walkthrough/make-a-simple-cloud-in-css3"><img src="uploads/wt/6.png" alt="Make a simple cloud in CSS3" width="100"/></a>
+			</div>
+		</li>
+			<li>
+			<a class="related_wt_label" href="walkthrough/make-a-simple-navigation-with-hover-transitions"><span class="label_holder">Make a simple navigation with hover transitions</span></a>
+			<div class="wt_screenshot">
+				<a href="walkthrough/make-a-simple-navigation-with-hover-transitions"><img src="uploads/wt/14.png" alt="Make a simple navigation with hover transitions" width="100"/></a>
+			</div>
+		</li>
+			<li>
+			<a class="related_wt_label" href="walkthrough/simple-yet-amazing-css3-border-transition-effects"><span class="label_holder">Simple yet amazing CSS3 border transition effects</span></a>
+			<div class="wt_screenshot">
+				<a href="walkthrough/simple-yet-amazing-css3-border-transition-effects"><img src="uploads/wt/4.png" alt="Simple yet amazing CSS3 border transition effects" width="100"/></a>
+			</div>
+		</li>
+			<li>
+			<a class="related_wt_label" href="walkthrough/navigation-tabs-with-rounded-out-borders-using-css3"><span class="label_holder">Navigation tabs with rounded out borders using CSS3</span></a>
+			<div class="wt_screenshot">
+				<a href="walkthrough/navigation-tabs-with-rounded-out-borders-using-css3"><img src="uploads/wt/11.png" alt="Navigation tabs with rounded out borders using CSS3" width="100"/></a>
+			</div>
+		</li>
+			<li>
+			<a class="related_wt_label" href="walkthrough/google-doodle-animation-in-css3-without-javascript"><span class="label_holder">Google Doodle animation in CSS3 without Javascript</span></a>
+			<div class="wt_screenshot">
+				<a href="walkthrough/google-doodle-animation-in-css3-without-javascript"><img src="uploads/wt/15.png" alt="Google Doodle animation in CSS3 without Javascript" width="100"/></a>
+			</div>
+		</li>
+			<li>
+			<a class="related_wt_label" href="walkthrough/make-a-stopwatch-using-css3-without-images-or-javascript"><span class="label_holder">Make a stopwatch using CSS3 without images or javascript</span></a>
+			<div class="wt_screenshot">
+				<a href="walkthrough/make-a-stopwatch-using-css3-without-images-or-javascript"><img src="uploads/wt/22.png" alt="Make a stopwatch using CSS3 without images or javascript" width="100"/></a>
+			</div>
+		</li>
+	</ul>
+	</div>
+	
+	<!-- JS Libs Included -->
+	<script>
+		/*
+			Hmm...
+		*/
+		var cssdeck_choosen_res = [],
+				cssdeck_test_global;
+	
+	</script>
+
+	<!-- jquery js -->
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script> -->
+	<script src="js/jquery.js"></script>
+	<!-- codemirror -->
+	<script src="js/autosize/jquery.autosize-min.js"></script>
+	<script src="js/ui.js"></script>
+	<script src="js/codemirror.js"></script>
+	<script src="js/xml.js"></script>
+	<script src="js/css.js"></script>
+	<script src="js/javascript.js"></script>
+	
+	
+
+	<!-- json2 -->
+	<script src="js/json2.js"></script>
+	
+	<script src="js/main_mod.js"></script>
+	<script src="jsdata/js_data/188/"></script>
+		<script src="js/walkthrough.js"></script>
+	
+	<!-- jquery UI -->
+	<script src="js/jui/js/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" language="javascript">
+		$(document).ready(function(){
+			$window_width = parseFloat($(window).width());
+			$window_height = parseFloat($(window).height());
+			$drag_pause = false;
+			/*$(".editor_pane").draggable({
+				start: function(){ 
+					if($loop != null)
+					{
+						$drag_pause = true;
+						pause(); 
+					}
+				}, 
+				stop: function(){ 
+					if($editor_pane_left != 0 && $editor_pane_top != 28)
+					{
+						$("header").animate({paddingLeft: "0"}, 500);
+					}
+					if($slide < $slides && $slide != 0 && $drag_pause == true)
+					{
+						play();
+						$drag_pause = false;
+					}
+				}, 
+				drag: function(){
+					$window_width = parseFloat($(window).width());
+					$window_height = parseFloat($(window).height());
+					$editor_pane_width = parseFloat($(this).outerWidth());
+					$editor_pane_height = parseFloat($(this).height());
+					$editor_pane_left = parseFloat($(".editor_pane").css("left"));
+					$editor_pane_top = parseFloat($(".editor_pane").css("top"));
+					if($editor_pane_left == 0 && $editor_pane_top == 28)
+					{
+						if(!$(".editor_pane").hasClass("dockedin"))
+						{
+							$(".editor_pane").addClass("dockedin vertical").removeClass("dockedout").removeClass("horizontal").css("top", "0");
+							$(".output").css("width", "60%");
+						
+							if($("header").css("paddingLeft") != "195px")
+							{
+								$("header").css({paddingLeft: "195px"});
+							}
+							display_resolution();
+						}
+					}
+					else
+					{
+						if(!$(".editor_pane").hasClass("dockedout"))
+						{
+							$(".editor_pane").addClass("dockedout vertical").removeClass("dockedin").removeClass("horizontal").css("max-height", $window_height);
+							$(".output").css("width", "100%");
+							display_resolution();
+						}
+					}
+				}, 
+				snap: ".editor_snap", 
+				iframeFix: true, 
+				scroll: false, 
+				handle: "#editor_pane_handle", 
+				containment: [0, 28, $window_width, $window_height],
+			});*/
+			
+			/*
+			Commented temporarily by Puneet Pugalia
+			$(".editor_pane").resizable({
+				maxHeight: parseFloat($(window).height()),
+				minHeight: 200,  
+				minWidth: 200,  
+				containment: ".output",
+				start: function(event, ui) {
+					//add a mask over the Iframe to prevent IE from stealing mouse events
+					$(".output").append("<div id=\"mask\" style=\"background:url('images/spacer.gif'); position: absolute; z-index: 9998; left: 0pt; top: 0pt; right: 0pt; bottom: 0pt;\"></div>");
+				},
+				stop: function(event, ui) {
+					//remove mask when dragging ends
+					$("#mask").remove();
+				}
+			});
+			*/
+		})
+	</script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-29769082-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!-- Place this render call where appropriate - for google +1 button-->
+	<script type="text/javascript">
+	  (function() {
+		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		po.src = 'https://apis.google.com/js/plusone.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	  })();
+	</script>
+	</body>
+</html>
