@@ -53,6 +53,27 @@
 				}
 			});
 		}
+
+		var searchForTag = function(tag) {
+			$.ajax({ url: 'http://127.0.0.1:8080/addUrl',
+                type: 'POST',
+                data: toSend,
+                dataType: 'json',
+                contentType: "application/json",
+//                cache: false,
+                success : function(result) {
+                    console.log("yaaaay");
+					console.log("result is ", result);
+					$('#appInstructions').text('success! hit esc-:q to quit');
+                },
+                error : function() {
+                    console.log("saaaaad"); 
+					$('#appInstructions').append($('<h2 class="errh2">Something went wrong with your request</h2>'));
+                },
+            });
+
+		}
+
 	</script> 
 
 <!--
@@ -127,6 +148,9 @@
 	        <center><p id="tagPara" style = "margin-right: 5px; margin-top: 10px "></p></center>
 	        </div>
     </div>
+	<div id="bookmarkDiv">
+	
+	</div>
 </div> <!-- /container -->
 
 <div class = "footer">
