@@ -109,8 +109,9 @@
 	
 		function showColon () {
 			colonOpen = 1;
-			$('#wqFooter').fadeIn(300, function() {
-			$('#wqFooterTxt').focus();
+			$('#wqFooter').fadeIn(200, function() {
+				$('#appInstructions').css('text-align', 'left').css('font-family', 'Quicksand');
+				$('#wqFooterTxt').css('font-size','15px').focus();
 				console.log("showing colon");
 			});
 		}
@@ -139,7 +140,7 @@
 			tagform.append(tagInput);
 			tagformdiv.append(tagform);
 			var instr = $('<div></div>');
-			var bigH = $('<h1 id="appInstructions"> tags: </h1>');
+			var bigH = $('<div id="appInstructions"> tags: </div>');
 			instr.append(bigH);
 			row.append(instr);
 			row.append(tagformdiv);

@@ -7,6 +7,7 @@
 
 #appInstructions {
 	color : white;
+	font-size : 25px;
 }
 
 #wqFooter {
@@ -38,7 +39,7 @@
 
 #wqFooterTxt {
 	font-family: 'Quicksand', sans-serif;
-	font-size : 15px;
+	font-size : 18px;
 	padding-left : 10px;
 	padding-top : 10px;
 	padding-bottom : 5px;
