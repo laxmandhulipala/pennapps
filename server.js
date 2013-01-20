@@ -10,9 +10,6 @@ var _ = require('lodash');
 var redis = require("redis"),
         client = redis.createClient();
 
-var url2png = require('url2png')('P50FB82641571C', 'SC5361FA74C0EA');
-
-
 client.select(1);
 client.set("hello", "world");
 
@@ -89,17 +86,6 @@ app.get("/about.html", function(req, res) {
 	console.log("Sending '/'");
 	res.sendfile(staticDir + 'about.html');
 });
-
-/* var getUrl = function(theUrl, theTags) {
-	request(theUrl, function(err, resp, body) {
-		if (err) {
-			console.log("There was an error");
-		}
-		$ = cheerio.load(body);
-		console.log("printing out body");
-		console.log($(document.body).textContent);
-	});
-}; */
 
 app.get("/flushDB", function(req, res) {
 	client.flushall( function (didSucceed) {
