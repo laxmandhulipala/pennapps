@@ -1,7 +1,6 @@
 (function($) {
 	$(document).ready(function(){
 
-
 		var numInput = 0;	
 		var pageOpen = 0;
 		var colonOpen = 0;
@@ -47,7 +46,7 @@
                 },
                 error : function() {
                     console.log("saaaaad"); 
-					$('#appInstructions').append($('<h2 class="errh2">Something went wrong with your request</h2>'));
+/*					$('#appInstructions').append($('<h2 class="errh2">Something went wrong with your request</h2>')); */
                 },
             });
 		}		
@@ -61,9 +60,11 @@
 
 		function makeColon () {
 			console.log("making colon");
+			var footImg = $('<img></img>').attr('src','http://127.0.0.1:8080/img/logoWhite.png').attr('id','footImg');
 			var foot = $('<div></div>').attr('id', 'wqFooter');
 			var footInp = $('<input></input>').attr('type', 'text').attr('name','wqFooterTxt').attr('id','wqFooterTxt').attr('maxlength','10').text('');
 			$(foot).append(footInp);
+			$(foot).append(footImg);
 			$('body').append(foot);
 
 			$('#wqFooterTxt').bind('keypress', function(e) {
@@ -138,7 +139,7 @@
 			tagform.append(tagInput);
 			tagformdiv.append(tagform);
 			var instr = $('<div></div>');
-			var bigH = $('<h1 id="appInstructions"> enter tags: </h1>');
+			var bigH = $('<h1 id="appInstructions"> tags: </h1>');
 			instr.append(bigH);
 			row.append(instr);
 			row.append(tagformdiv);

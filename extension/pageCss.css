@@ -1,31 +1,60 @@
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Quicksand Regular'), local('Quicksand-Regular'), url(http://themes.googleusercontent.com/static/fonts/quicksand/v2/sKd0EMYPAh5PYCRKSryvW7O3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+
+#appInstructions {
+	color : white;
+}
+
 #wqFooter {
+	font-family: 'Quicksand', sans-serif;
 	display : none;
 	bottom : 0;
 	left : 0;
 	position : fixed;
-	background: #e2b759;
+	background: #EA9E94;
+/* 234 158 148 */
 	width : 100%;
-	height : 25px;
+	height : 40px;
 	z-index : 100 !important;
 /*	position : absolute;
 	width : 100%;
 	bottom : 0;
 	left : 0;
 	z-index : 100 !important; */
+}
+
+#footImg {
+	position : fixed;
+	bottom : 0;
+	right : 0;
+	width : 105px;
+	padding-right : 20px;
+	padding-bottom : 5px;
 } 
 
 #wqFooterTxt {
+	font-family: 'Quicksand', sans-serif;
+	font-size : 15px;
 	padding-left : 10px;
+	padding-top : 10px;
 	padding-bottom : 5px;
 }
 
 #tagMain {
+	font-family: 'Quicksand', sans-serif;
 	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
-	background: #dca838; 
-	background: rgba(220, 158, 56, .95); 
+	/*background: #dca838; */
+	background: #d14826;
+/*	background: rgba(220, 158, 56, .95);  */
+	background: rgba(209, 72, 38, .95);  
+	
 /*	background: #bbeeef; */
 	width: 100%;
 	height: 100%;
@@ -34,14 +63,17 @@
 }
 
 #tagMain .searchHeaders {
+	font-family: 'Quicksand', sans-serif;
 	margin-bottom: 25px;
 }
 
 .errh2 {
+	font-family: 'Quicksand', sans-serif;
 	color: red;
 }
 	
 #tagMain .searchHeader {
+	font-family: 'Quicksand', sans-serif;
 	color: white;
 	display: inline;
 	float: left;
@@ -62,6 +94,7 @@
 }
 
 #tagMain .searchInstructions {
+	font-family: 'Quicksand', sans-serif;
 	display: inline;
 	float: left;
 	width: 241px;
@@ -81,6 +114,7 @@
 }
 
 #tagMain .searchDismiss {
+	font-family: 'Quicksand', sans-serif;
 	background: url('http://imjakechapman.s3.amazonaws.com/imjakechapman/close.png') transparent no-repeat center center;
 	float: right;
 	color: white;
@@ -91,10 +125,12 @@
 }
 
 #tagMain .tagform {
+	font-family: 'Quicksand', sans-serif;
 	margin-top: 45px;
 }
 
 #tagMain input[type=text] {
+	font-family: 'Quicksand', sans-serif;
 	color: white;
 	font-size: 2.5em;
 	font-weight: 800;
@@ -103,12 +139,12 @@
 	width: 100%;
 	margin: 15px 0 0 0;
 	border: none;
-	border-bottom: 1px solid #dca838;
 	outline: none;
 	background: none;
 }
 
 #wqFooterTxt {
+	font-family: 'Quicksand', sans-serif;
 	color: white;
 	font-size: 1em;
 	font-weight: 800;
