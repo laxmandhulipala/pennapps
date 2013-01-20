@@ -17,6 +17,7 @@
 	<script type="text/html" id="pageTemplate">
 		<div class="span4 wqWrap" style = "margin-top: 30px;">
 	  		<img id = "a" class="wqFrame" style = "border: 2px solid; padding: -10px; border-radius: 13px; border-color: #DDD" src=<%= 			pageUrl %> ></img>
+			<p class="wqWrapText"> <%= tags %> </p>
 	  	</div>
 	</script>
 
@@ -106,7 +107,10 @@
 					searchForTags(buf);
 				}
 			});
-			
+	
+			$('.wqWrap').hover(function() {
+				console.log("HOWEVER");
+			});
 			
 			var clear = $('<img></img>'); //Equivalent: $(document.createElement('img'))
 			clear.attr('src', 'img/close.png');
@@ -135,9 +139,35 @@
 					result.forEach(function(resObj) {
 						var context = {}
 						var hashVal = resObj.hashVal;
+						var tags = resObj.tags;
 						context['pageUrl'] = 'cache/'+ hashVal + '.png';
+						context['tags'] = tags;
 						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn();
 						console.log("adding this context, ", context);
+					});
+					$('.wqWrap').hover(function(e) {
+						console.log($(e.target));
+						if ($(e.target).hasClass('wqFrame')) {
+							$(e.target).addClass('wqBlur');
+							$(e.target).parent().find('.wqWrapText').fadeIn(200);
+						}
+						else {
+							$(e.target).parent().find('.wqFrame').addClass('wqBlur');	
+							$(e.target).parent().find('.wqWrapText').fadeIn(200);
+						}
+					}, function(e) {
+						if ($(e.target).hasClass('wqFrame')) {
+							$(e.target).removeClass('wqBlur');
+							$(e.target).parent().find('.wqWrapText').fadeOut(200);
+						}
+						else {
+							$(e.target).parent().find('.wqFrame').removeClass('wqBlur');	
+							$(e.target).parent().find('.wqWrapText').fadeOut(200);
+						}
+					});
+					$('.wqWrapText').hover(function(e) {
+						console.log("in");
+						e.preventDefault();
 					});
                 },
                 error : function() {
@@ -145,7 +175,6 @@
                 },
             });
 		}
-		
 		
 
 		var searchForTag = function(tag) {

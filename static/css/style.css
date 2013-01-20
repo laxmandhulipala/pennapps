@@ -4,15 +4,50 @@ html, body {
 }
 
 .wqWrap {
+	position : relative;
+}
+/*	-moz-transition:all 0.6s ease;
+	-webkit-transition:all 0.6s ease;
+	-ms-transition:all 0.6s ease;
+	-o-transition:all 0.6s ease;
+	transition:all 0.6s ease;
+	-webkit-filter:grayscale(0) blur(0px);
+	position : relative;
+} */
+
+.wqFrame {
 	-moz-transition:all 0.6s ease;
 	-webkit-transition:all 0.6s ease;
 	-ms-transition:all 0.6s ease;
 	-o-transition:all 0.6s ease;
 	transition:all 0.6s ease;
 	-webkit-filter:grayscale(0) blur(0px);
+	position : relative;
 }
 
-.wqWrap :hover {
+
+.wqWrap > :hover {
+	
+}
+
+/*
+.image-with-text-over-it p {
+    left: 0;
+    color: #fff;
+    background: rba(0, 0, 0, 0.8);
+} */
+
+.wqWrapText {
+	display : none;
+	overflow : wrap;
+	position : absolute;
+	font-color : white;
+	top : 50px;
+	left : 5px;
+	text-align : center;
+}
+
+.wqBlur {
 	-moz-box-shadow:0 0 12px rgba(0, 0, 0, 0.6);
 	-webkit-box-shadow:0 0 12px rgba(0, 0, 0, 0.6);
 	box-shadow:0 0 0px rgba(0, 0, 0, 0.6);
