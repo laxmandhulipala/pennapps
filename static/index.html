@@ -6,11 +6,40 @@
   <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
   <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-  <script type='text/javascript' src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
-  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<!--  <script type='text/javascript' src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script> -->
+<!--  <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+  <script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+
+
+	<script type="text/html" id="pageTemplate">
+	</script>
+
   <link href = "css/style.css" rel = "stylesheet">
 	<script>
 		var buf = [];
+						
+/*		function autoResize(id){
+			var newheight;
+			var newwidth;
+
+			if(document.getElementById){
+				newheight=document.getElementById(id).contentWindow.document .body.scrollHeight;
+				newwidth=document.getElementById(id).contentWindow.document .body.scrollWidth;
+			}
+
+			document.getElementById(id).height= (newheight) + "px";
+			document.getElementById(id).width= (newwidth) + "px";
+		}			
+*/
+		function setIframeHeight(iframe) {
+					if (iframe) {
+						var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+						if (iframeWin.document.body) {
+							iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+						}
+					}
+				};
 
 		var buildImg = function (inpTxt) {
 			var img = $('<img></img>'); //Equivalent: $(document.createElement('img'))
@@ -40,38 +69,46 @@
 		}
 
 		window.onload = function() {
+			$('.wqFrame').load(function () {
+				console.log("wqframe loaded");
+			});
 			$('#search').bind('keypress', function(e) {
 				if (e.keyCode === 13) {
 					console.log("enter pressed");
 					var inpTxt = $('#search').val().replace(/ /g,'')
 					var inpArr = inpTxt.split(',');
+					var firstInp = inpArr[0];
+					$('#search').val('');
 					inpArr.forEach(function(inp) {
 						if (inp !== "" && (buf.indexOf(inp) === -1)) {
 							addTag(inp);	
 						}
 					});
+					searchForTag(firstInp);
 				}
 			});
 		}
 
 		var searchForTag = function(tag) {
-			$.ajax({ url: 'http://127.0.0.1:8080/addUrl',
+			var toSend = JSON.stringify({tag : tag});
+			$.ajax({ url: '/searchForTag',
                 type: 'POST',
                 data: toSend,
                 dataType: 'json',
                 contentType: "application/json",
-//                cache: false,
                 success : function(result) {
-                    console.log("yaaaay");
 					console.log("result is ", result);
-					$('#appInstructions').text('success! hit esc-:q to quit');
+					result.forEach(function(resObj) {
+						var context = {}
+						context['pageUrl'] = resObj.url;
+						var template = $("#pageTemplate").html();
+						$("#bookmarkDiv").append(_.template(template,context));
+					});
                 },
                 error : function() {
-                    console.log("saaaaad"); 
-					$('#appInstructions').append($('<h2 class="errh2">Something went wrong with your request</h2>'));
+					console.log("server error");
                 },
             });
-
 		}
 
 	</script> 
