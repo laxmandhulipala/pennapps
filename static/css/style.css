@@ -15,7 +15,7 @@ html, body {
 .wqWrap :hover {
 	-moz-box-shadow:0 0 12px rgba(0, 0, 0, 0.6);
 	-webkit-box-shadow:0 0 12px rgba(0, 0, 0, 0.6);
-	box-shadow:0 0 12px rgba(0, 0, 0, 0.6);
+	box-shadow:0 0 0px rgba(0, 0, 0, 0.6);
 	-webkit-filter:grayscale(1) blur(2px);
 }
 
@@ -144,7 +144,6 @@ color: #ea9e94;
 }
 
 .footer{
-	position:absolute;
    bottom:0;
    width:100%;
    height:40px;   /* Height of the footer */
