@@ -271,6 +271,7 @@ app.post("/searchForTag", function(req, res) {
 
 app.post("/searchForTags", function(req, res) {
 	if (req.body.tags) {
+		var tags = req.body.tags;
 		searchByTags(tags, function(results) {
 			var urls = [];
 			var resultsArr = [];
