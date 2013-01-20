@@ -205,7 +205,6 @@ var searchByTags = function (tags, cb) {
 		}
 	};
 	refreshUrls(afterRefresh);
-
 }
 
 app.get("/testTag/:tagName", function(req, res) {
@@ -262,7 +261,6 @@ app.post("/searchForTags", function(req, res) {
 		});
 	}
 });
-
 
 
 app.post("/addUrl", function(req, res) {
