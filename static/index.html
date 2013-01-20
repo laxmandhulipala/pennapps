@@ -2,10 +2,12 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>wqueue</title>
+  <title>:wqueue</title>
   <link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
   <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/boxes.css">
+  
 <!--  <script type='text/javascript' src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script> -->
 <!--  <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script> -->
   <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
@@ -13,9 +15,9 @@
 
 
 	<script type="text/html" id="pageTemplate">
-	  <div class="span4">
-		<img class="wqFrame" src=<%= pageUrl %> ></img>
-	  </div>
+		<div class="span4" style = "margin-top: 30px;">
+	  		<img class="wqFrame" style = "border: 2px solid; padding: -10px; border-radius: 13px; border-color: #DDD" src=<%= 			pageUrl %> ></img>
+	  	</div>
 	</script>
 
   <link href = "css/style.css" rel = "stylesheet">
@@ -69,9 +71,11 @@
 			nSpan.append(img);
 			xSpan.append(nSpan);
 			$(xSpan).hide().appendTo("#tagPara").fadeIn();
+			$("#bookmarkDiv").children().empty();
 		}
 
 		window.onload = function() {
+			loadAll();
 			$('.wqFrame').load(function () {
 				console.log("wqframe loaded");
 			});
@@ -108,6 +112,31 @@
 			clear.hide().appendTo("#clear").fadeIn();
 			
 		}
+		
+		
+		var loadAll = function(){
+			$.ajax({url:'/allBookmarks',
+				type: 'GET',
+				dataType: 'json',
+				contentType: "application/json",
+				success : function(result) {
+					console.log("result is ", result);
+					var template = $("#pageTemplate").html();
+					result.forEach(function(resObj) {
+						var context = {}
+						var hashVal = resObj.hashVal;
+						context['pageUrl'] = 'cache/'+ hashVal + '.png';
+						$("#bookmarkDiv").hide().append(_.template(template,context)).fadeIn();
+						console.log("adding this context, ", context);
+					});
+                },
+                error : function() {
+					console.log("server error");
+                },
+            });
+		}
+		
+		
 
 		var searchForTag = function(tag) {
 			var toSend = JSON.stringify({tag : tag});
@@ -123,7 +152,7 @@
 						var context = {}
 						var hashVal = resObj.hashVal;
 						context['pageUrl'] = 'cache/'+ hashVal + '.png';
-						$("#bookmarkDiv").append(_.template(template,context));
+						$("#bookmarkDiv").append(_.template(template,context)).show();
 						console.log("adding this context, ", context);
 					});
                 },
@@ -200,22 +229,20 @@
 
 
 
-<div class="container-fluid" id="maincont">
+<div class="container" id="maincont">
+
+
     <div class="row-fluid">
     		<div class = "span12">
 	        <span><center><input id = "search" placeholder="Search..."><span id = "clear" style = "margin-left: 10px"></span></center></span>
 	        <center><p id="tagPara" style = "margin-right: 5px; margin-top: 10px "></p></center>
 	        </div>
     </div>
-	<div id="bookmarkDiv">
-			<script>
-			function clear(){
-			alert();
-			buf = [];
-			console.log(buf);
-		}
-		</script>
+    <div class = "bookmarkWrapper" style = "text-align:center">
+	<div id="bookmarkDiv" class = "row">
+			
 	</div>
+    </div>
 </div> <!-- /container -->
 
 <div class = "footer">
