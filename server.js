@@ -9,6 +9,8 @@ var fs = require("fs");
 var _ = require('lodash');
 var redis = require("redis"),
         client = redis.createClient();
+					
+var url2png = require('url2png')('P50FB82641571C', 'SC5361FA74C0EA');
 
 client.select(1);
 client.set("hello", "world");

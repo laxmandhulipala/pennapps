@@ -38,10 +38,10 @@ html, body {
 	overflow : wrap;
 	position : absolute;
 	font-color : white;
-	top : 218px;
+	top : 100px;
 	left : 5px;
 	color: #eb9e94;
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: 500;
 	font-family: 'Quicksand', sans-serif;
 }
@@ -52,10 +52,10 @@ html, body {
 	overflow : wrap;
 	position : absolute;
 	font-color : white;
-	top : 200px;
+	top : 220px;
 	left : 5px;
 	color: #eb9e94;
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: 500;
 	font-family: 'Quicksand', sans-serif;
 }
