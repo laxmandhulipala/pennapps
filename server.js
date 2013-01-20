@@ -50,7 +50,6 @@ function generateHash(url)
 	return crypto.createHash('sha1').update(current_date + random).digest('hex');
 }
 
-
 app.configure(function() {
     app.use(express.cookieParser('your secret here'));                                     
     app.use(express.bodyParser());
@@ -116,14 +115,15 @@ var refreshUrls = function(cb) {
 							var content = nRes['content'];
 							var keyVal = nRes['url'];
 							var hashVal = nRes['urlHash'];
+							var tags = nRes['tags'];
 							var newI = ind; 
-							searchMap[newI] = {hashVal : hashVal, keyVal : keyVal, content : content};
-		
+							searchMap[newI] = {hashVal : hashVal, keyVal : keyVal, content : content, tags : tags};
+
 							if (Object.keys(searchMap).length === numToProcess) {
 								// We're done - call the callback, and finish up. 
 		
 								for (var i=0; i < Object.keys(searchMap).length; i++) {
-									searchIds.push({hashVal : searchMap[i].hashVal, url : searchMap[i].keyVal 
+									searchIds.push({tags : searchMap[i].tags, hashVal : searchMap[i].hashVal, url : searchMap[i].keyVal 
 													});
 
 									console.log("Searchmap[i].keyval is ", searchMap[i].keyVal);
@@ -240,6 +240,7 @@ app.get("/testTag/:tagName", function(req, res) {
 
 app.get("/allBookmarks", function(req, res) {
 	var afterRefresh = function() {
+		console.log("searchIds : ", searchIds);
 		res.send(searchIds);	
 	}
 	refreshUrls(afterRefresh);
@@ -316,7 +317,6 @@ app.post("/addUrl", function(req, res) {
 		res.send({stat : 'success', msg : 'All good bro'});
 		refreshUrls();
 	}
-
 /*
 	var searchA = reds.createSearch('addUrl');
 
