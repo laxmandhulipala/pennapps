@@ -243,6 +243,13 @@ app.get("/testTag/:tagName", function(req, res) {
 		});
 });
 
+app.get("/allBookmarks", function(req, res) {
+	var afterRefresh = function() {
+		res.send(searchIds);	
+	}
+	refreshUrls(afterRefresh);
+});
+
 app.post("/searchForTag", function(req, res) {
 	if (req.body.tag) {
 		var tag = req.body.tag;
